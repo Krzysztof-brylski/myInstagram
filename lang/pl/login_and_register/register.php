@@ -7,7 +7,7 @@ return [
         'username'=>'Nazwa użytkownika',
         'submit'=>'Zarejestruj się',
     ],
-    'note'=>'Sign up to see photos and videos from your friends.',
+    'note'=>'Zarejestruj się aby zobaczyć zdjęcia i filmy od twoich przyjaciół.',
     'login_via_fb'=>'Zaloguj się przez Facebook',
     'copy_note'=>'Jest to kopia instarama, wykonana w celach edukacyjnych',
     'has_acc'=>'Masz już konto ?',
