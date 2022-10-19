@@ -37,9 +37,9 @@
                     <div class="container">
                         <form method="POST" class="login-form" action="{{ route('login') }}" >
                             @csrf
-                            <input id="email" type="email" class="form-input " name="email" placeholder="{{__('login_and_register.login.input.email')}}" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                            <input id="password" type="password" class="form-input" name="password" placeholder="Password" required autofocus>
-                            <input type="submit"  class="form-submit" value="Zaloguj się">
+                            <input id="email" type="email" class="form-input " name="email" placeholder="{{__('login_and_register/login.input.email')}}" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            <input id="password" type="password" class="form-input" name="password" placeholder="{{__('login_and_register/login.input.password')}}" required autofocus>
+                            <input type="submit"  class="form-submit" value="{{__('login_and_register/login.input.submit')}}">
                         </form>
                     </div>
                     <div class="flex justify-content-center items-center my-3">
@@ -62,16 +62,16 @@
                         @enderror
                     </div>
                     <div class="alternative-login mx-2">
-                        <span class="my-2" style="color: #385185;cursor: pointer;font-weight: bold;font-size: medium">Zaloguj się przez Facebook</span>
+                        <span class="my-2" style="color: #385185;cursor: pointer;font-weight: bold;font-size: medium">{{__('login_and_register/login.login_via_fb')}}</span>
 
-                        <span class="my-2"><a style="text-decoration: none;" href="#">Nie pamiętasz hasła?</a></span>
+                        <span class="my-2"><a style="text-decoration: none;" href="#">{{__('login_and_register/login.forgot_passowrd')}}</a></span>
                     </div>
                 </div>
             </div>
 
             <div class="card w-50" style="margin-top: 25px;">
                 <div class="card-body text-center">
-                    Nie masz konta? <a class="register-anhor" href="{{route('register')}}">Zarejestruj się</a>
+                    Nie masz konta? <a class="register-anhor" href="{{route('register')}}">{{__('login_and_register/login.register')}}</a>
                 </div>
             </div>
 
