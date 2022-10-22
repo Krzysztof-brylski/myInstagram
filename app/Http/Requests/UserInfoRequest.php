@@ -25,9 +25,8 @@ class UserInfoRequest extends FormRequest
     public function rules()
     {
         return [
-            'birth-day'=>'required|date_format:y.m.d|',
-            'sex'=>[new Enum(\UserSexEnum::class)],
-            'photo'=>'nullable|image|mimes:jpg,png',
+            'birth_day'=>'required',
+            'photo'=>'nullable',
         ];
     }
 }

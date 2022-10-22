@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('user_infos', function (Blueprint $table) {
             $table->id();
-            $table->enum('sex',UserSexEnum::SEX);
             $table->string('photo');
             $table->date('birth_day')->nullable()->default(null);
             $table->foreignId('user_id')->constrained();

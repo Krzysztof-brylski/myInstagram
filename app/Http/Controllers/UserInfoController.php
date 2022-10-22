@@ -19,7 +19,11 @@ class UserInfoController extends Controller
      */
     public function create()
     {
-        return view('auth.additional_info',['user'=>Auth::user()]);
+        $months=__('login_and_register/UserInfo.months');
+        return view('auth.additional_info.additional_info', [
+            'user'=>Auth::user(),
+            'months'=>$months
+            ]);
     }
 
     /**
@@ -29,17 +33,18 @@ class UserInfoController extends Controller
      * @param User $User
      * @return void
      */
-    public function store(userInfoRequest $request,User $User)
+    public function store(UserInfoRequest $request,User $User)
     {
         $data=$request->validated();
         $info = new UserInfo($data);
-        if($request->hasFile('photo')){
-            //check if user selected photo if not use default depend on user sex
-            !is_null($data->photo) ?
-                $info->photo=$request->file('photo')->store('user_photos'):
-                $info->set_default_photo();
-        }
 
+        if($request->hasFile('photo')){
+
+            $info->photo=$request->file('photo')->store('user_photos');
+            $User->Info()->save($info);
+            return redirect(route('home'));
+        }
+        $info->photo=asset('storage/default.png');
         $User->Info()->save($info);
         return redirect(route('home'));
     }

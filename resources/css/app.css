@@ -52,3 +52,9 @@ body{
     color: #0095f6;
     font-weight: bold;
 }
+.user-photo{
+    width: 200px;
+    height: 200px;
+    border: 1px solid transparent;
+    border-radius: 100%;
+}

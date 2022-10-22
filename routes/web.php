@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\UserInfoController as UserInfoControllerAlias;
+use App\Http\Controllers\UserInfoController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,8 +19,15 @@ Route::get('/', [WelcomeController::class,'index']);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 
 Route::middleware('auth')->group(function (){
-    Route::resource('UserInfo', UserInfoControllerAlias::class);
+    Route::middleware('ExistUserInfo')->group(function (){
+        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    });
+
+    Route::resource('UserInfo', UserInfoController::class)->only(
+        'create','edit','update'
+    );
+    Route::post('/UserInfo/{User}',[UserInfoController::class,'store'])->name('UserInfo.store');
 });
