@@ -24,6 +24,7 @@ Auth::routes();
 Route::middleware('auth')->group(function (){
     Route::middleware('ExistUserInfo')->group(function (){
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+        Route::get('/user/search', [App\Http\Controllers\SearchController::class, 'search_user'])->name('search_user');
     });
 
     Route::resource('UserInfo', UserInfoController::class)->only(
