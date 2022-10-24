@@ -22,6 +22,7 @@ class SearchController extends Controller
             $json=array();
             foreach ($result as $user){
                 $json[$user->id]=[
+                    'id'=>$user->id,
                     'name'=>$user->name,
                     'username'=> $user->username,
                     'img'=>$user->Info->photo

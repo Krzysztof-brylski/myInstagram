@@ -44,7 +44,7 @@ class UserInfoController extends Controller
             $User->Info()->save($info);
             return redirect(route('home'));
         }
-        $info->photo=asset('storage/default.png');
+        $info->photo = "user_photos/default.png";
         $User->Info()->save($info);
         return redirect(route('home'));
     }

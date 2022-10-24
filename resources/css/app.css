@@ -3,6 +3,7 @@ body{
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     font-size: 14px;
     line-height: 18px;
+    overflow-x: hidden;
 }
 .logo{
     display: flex;
@@ -69,3 +70,83 @@ body{
     width: 60%;
 
 }
+#search-form-result{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 110%;
+    background-color: white;
+    height: 300px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.search-form-result-container{
+    position: relative;
+}
+.searching-result-anhor{
+    text-decoration: none;
+    outline: none;
+    color: black;
+    cursor: pointer;
+}
+.searching-result-anhor:hover{
+    background-color: rgba(239,239,239,0.4);
+    outline: none;
+    color: black;
+}
+.searching-result-img{
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    border: 1px solid transparent;
+}
+.searching-result-text span{
+    color: rgb(142, 142, 142);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    text-transform: uppercase;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+.modal-overlay{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    overflow: hidden;
+
+}
+.modal-close-btn-container{
+    position: fixed;
+    display: flex;
+    justify-content: end;
+    width: 100%;
+
+}
+.modal-close-btn{
+
+    text-align: right;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+.content-container{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+.content{
+    height: 70%;
+    width: 40%;
+    border-radius: 15px ;
+    background-color: white;
+}
+.modal-form-container{
+    height: inherit;
+}
+.modal-header{
+    border-bottom: 2px rgba(239,239,239,1) solid;
+}
+
