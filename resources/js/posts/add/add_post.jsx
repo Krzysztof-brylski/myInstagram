@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {useState} from 'react'
-import Modal from './add_post_form';
+import Modal from './add_post_modal';
 
 function Add_post(){
     const [OpenModal,setOpenModal]=useState(false);
