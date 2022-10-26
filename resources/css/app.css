@@ -149,4 +149,13 @@ body{
 .modal-header{
     border-bottom: 2px rgba(239,239,239,1) solid;
 }
-
+.ImgPreview{
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    transform: none;
+    border-radius: 0 0 18px 18px;
+}

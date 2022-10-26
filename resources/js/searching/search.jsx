@@ -12,7 +12,7 @@ class Search extends React.Component{
         open:false,
     };
     async componentDidMount(name) {
-
+        if(name ==="") return null;
         const response =  await fetch(request_url+ '?'+
             new URLSearchParams({
                 username:name

@@ -8,6 +8,8 @@ const Modal = ({open,onClose}) =>{
     const [files,setFiles]=useState({});
     const [showFrom,setFormShow]=useState(true);
     const [preView,setPreView]=useState(false);
+
+
     return(
         <div className="modal-overlay">
             <div className="modal-close-btn-container">
@@ -27,7 +29,7 @@ const Modal = ({open,onClose}) =>{
                         <h5 className="text-center">Utwórz nowy post</h5>
                     </div>
                     <ImageForm  setFiles={setFiles} show={showFrom} showFrom={setFormShow} preView={setPreView}/>
-                    <Preview show={preView} files={files} />
+                    <Preview show={preView} files={files} setFiles={setFiles} userInfo={userInfo} />
                 </div>
             </div>
         </div>

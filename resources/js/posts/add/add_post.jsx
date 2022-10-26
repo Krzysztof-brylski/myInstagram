@@ -21,7 +21,7 @@ function Add_post(){
                     <line fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"
                           strokeWidth="2" x1="12.003" x2="12.003" y1="6.545" y2="17.455"></line>
                 </svg>
-                <Modal open={OpenModal} onClose={toggleModal}/>
+                <Modal open={OpenModal} onClose={toggleModal} userInfo={userInfo}/>
             </div>
     );
 }

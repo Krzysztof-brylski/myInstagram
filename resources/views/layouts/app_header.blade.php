@@ -2,6 +2,14 @@
     const request_url='{{route('search_user')}}';
     const user_show_url='{{url('User/')}}';
     const storage='{{asset('storage/')}}';
+
+    const userInfo={
+        csrf:document.getElementById('csrf-token').content,
+        userName:"{{Auth::user()->name}}",
+        userPhoto:"{{Auth::user()->Info->photo}}",
+        storage:'{{asset('storage/')}}'
+    }
+
 </script>
 @viteReactRefresh
 @vite(['resources/js/searching/search.jsx'])
