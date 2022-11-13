@@ -36,6 +36,14 @@ class PostController extends Controller
         return Response()->json($response,200);
     }
 
+    public function like(Post $post){
+        if($post->exists){
+            $post->like();
+            return Response()->json("",200);
+        }
+        return Response()->json("",500);
+    }
+
     public function store(Request $request){
         if($request->hasFile('files')){
 

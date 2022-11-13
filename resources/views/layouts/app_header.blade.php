@@ -8,15 +8,16 @@
         userName:"{{Auth::user()->name}}",
         userPhoto:"{{Auth::user()->Info->photo}}",
         storage:'{{asset('storage/')}}',
-        postsGateWay:'{{route('get_posts',Auth::user()->id)}}'
+        postsGateWay:'{{route('get_posts',Auth::user()->id)}}',
+        postsLikeGateWay:'{{url('post/')}}',
     }
-
+    console.log(userInfo)
 </script>
 @viteReactRefresh
 @vite(['resources/js/searching/search.jsx'])
 @vite(['resources/js/posts/add/add_post.jsx'])
 @vite(['resources/js/posts/display/post_carousel.jsx'])
-<header class="bg-white py-3">
+<header class="bg-white py-3 position-fixed w-100">
     <div class="row align-items-center">
         <div class="col-xl-4 d-flex justify-content-end">
             <img  width="120px" src="{{asset('img/login-page/logo.png')}}">
@@ -40,8 +41,7 @@
         </div>
     </div>
 </header>
-<div class="d-flex justify-content-center align-items-center">
-    <div id="post_carousel">
-
-    </div>
+<div style="height: 70px"></div>
+<div id="post_carousel">
 </div>
+

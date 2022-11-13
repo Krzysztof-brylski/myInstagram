@@ -1,21 +1,20 @@
 import React,{useState,useEffect} from 'react';
 import ReactDOM from "react-dom";
-
+import Post from "./post";
+import axios from "axios";
 
 function Post_carousel() {
-    const[data,setData]=useState({});
-    fetch(userInfo.postsGateWay).then(function (res) {
-        res.json().then(function (res) {
-            setData(res);
-        })
-    }).then(
-       function () {
-           console.log(data);
-       }
-    );
-    return(
-        <div>
+    const[data,setData]=useState([]);
+    useEffect(()=>{
+        axios.get(userInfo.postsGateWay)
+            .then(res=>{setData(Object.values(res.data))});
+    },[]);
 
+    return(
+        <div className="d-flex flex-column justify-content-center align-items-center">
+            {
+                data.map(x=>{return <Post data={x} storage={storage}/>})
+            }
         </div>
     );
 

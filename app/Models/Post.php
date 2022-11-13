@@ -13,6 +13,9 @@ class Post extends Model
         'like_count',
         'content',
     ];
+    public function like(){
+        $this->like_count+=1;
+    }
     public function Author(){
         return User::query()->where('id','=',$this->user_id)->get();
     }

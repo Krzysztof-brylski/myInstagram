@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function (){
         Route::get('/user/search', [App\Http\Controllers\SearchController::class, 'search_user'])->name('search_user');
         Route::resource('User',UserController::class)->only('show');
         Route::post('/post', [PostController::class,'store'])->name('add_post');
+        Route::post('/post/{Post}', [PostController::class,'like'])->name('like_post');
         Route::get('/post/{User}', [PostController::class,'show'])->name('get_posts');
     });
 
