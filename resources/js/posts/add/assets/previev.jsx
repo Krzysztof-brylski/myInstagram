@@ -1,19 +1,16 @@
 import React,{useState} from 'react';
 import SendForm from './sendForm';
-
 function Preview(props) {
 
     if(!props.show) return null;
     const[currentSlide,setCurrentSlide]=useState(0);
-    const[showSendForm,setShowSendForm]=useState(false);
 
     var slides=[];
-    var urls=[];
+
     props.files.map((e)=>{
         slides.push(<div className="ImgPreview"  style={{backgroundImage:`url(${e.preview})`}} />);
-        urls.push(e.preview);
-    });
 
+    });
     const sliderControl={
         cursor:"pointer",
         fontSize: "30px",
@@ -27,7 +24,16 @@ function Preview(props) {
         top:"5%",
         fontWeight:"bold",
     };
-
+    let style={
+        height:"100%",
+        width:"100%"
+    };
+    if(props.sendform === true){
+        style={
+            height:"100%",
+            width:"70%"
+        };
+    }
     const prevSlide=()=>{
         if(currentSlide>0){
             setCurrentSlide(currentSlide-1);
@@ -40,12 +46,15 @@ function Preview(props) {
     };
 
     const toForm=()=>{
-        setShowSendForm(true);
+        props.showsendform(true);
+        sendBtn.add({
+            display:"none",
+        })
     };
 
     return(
         <div className="d-flex flex-row" style={{height:"93%"}}>
-          <div className="d-flex flex-row align-items-stretch overflow-hidden position-relative" style={{height:"100%",width:"100%"}}>
+          <div className="d-flex flex-row align-items-stretch overflow-hidden position-relative" style={style}>
               <div className="position-absolute top-50 w-100 d-flex justify-content-between">
                   <span className="mx-3" onClick={prevSlide} style={sliderControl}>❰</span>
                   <span className="mx-3" onClick={nextSlide} style={sliderControl}>❱</span>
@@ -56,7 +65,7 @@ function Preview(props) {
                   slides[currentSlide]
               }
           </div>
-            <SendForm show={showSendForm} url={urls} userInfo={userInfo}/>
+            <SendForm show={props.sendform} files={props.files} userInfo={userInfo} />
         </div>
     );
 }

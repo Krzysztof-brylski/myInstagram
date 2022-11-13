@@ -8,7 +8,11 @@ const Modal = ({open,onClose}) =>{
     const [files,setFiles]=useState({});
     const [showFrom,setFormShow]=useState(true);
     const [preView,setPreView]=useState(false);
-
+    const[showSendForm,setShowSendForm]=useState(false);
+    let size={width:"40%"};
+    if(showSendForm){
+        size={width:"60%"};
+    }
 
     return(
         <div className="modal-overlay">
@@ -24,12 +28,12 @@ const Modal = ({open,onClose}) =>{
                 </p>
             </div>
             <div className="d-flex justify-content-center align-items-center h-100">
-                <div className="content"  onClick={(event => {event.stopPropagation()})}>
+                <div className="content" style={size}  onClick={(event => {event.stopPropagation()})}>
                     <div className="modal-header d-flex justify-content-center p-1">
                         <h5 className="text-center">Utwórz nowy post</h5>
                     </div>
                     <ImageForm  setFiles={setFiles} show={showFrom} showFrom={setFormShow} preView={setPreView}/>
-                    <Preview show={preView} files={files} setFiles={setFiles} userInfo={userInfo} />
+                    <Preview show={preView} files={files} setFiles={setFiles} userInfo={userInfo} sendform={showSendForm} showsendform={setShowSendForm} />
                 </div>
             </div>
         </div>

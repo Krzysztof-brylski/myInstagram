@@ -139,10 +139,12 @@ body{
 }
 .content{
     height: 70%;
-    width: 40%;
     border-radius: 15px ;
+    transition: width 0.1s ease-in-out;
     background-color: white;
 }
+
+
 .modal-form-container{
     height: inherit;
 }

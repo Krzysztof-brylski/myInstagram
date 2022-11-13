@@ -7,13 +7,15 @@
         csrf:document.getElementById('csrf-token').content,
         userName:"{{Auth::user()->name}}",
         userPhoto:"{{Auth::user()->Info->photo}}",
-        storage:'{{asset('storage/')}}'
+        storage:'{{asset('storage/')}}',
+        postsGateWay:'{{route('get_posts',Auth::user()->id)}}'
     }
 
 </script>
 @viteReactRefresh
 @vite(['resources/js/searching/search.jsx'])
 @vite(['resources/js/posts/add/add_post.jsx'])
+@vite(['resources/js/posts/display/post_carousel.jsx'])
 <header class="bg-white py-3">
     <div class="row align-items-center">
         <div class="col-xl-4 d-flex justify-content-end">
@@ -37,7 +39,9 @@
             </div>
         </div>
     </div>
-
-
-
 </header>
+<div class="d-flex justify-content-center align-items-center">
+    <div id="post_carousel">
+
+    </div>
+</div>

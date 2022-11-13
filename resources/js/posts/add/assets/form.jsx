@@ -9,10 +9,13 @@ const ImageForm=(props)=>{
         accept:"image/*",
         onDrop: (acceptedFiles => {
             if(acceptedFiles.length>0) {
+                console.log(acceptedFiles);
                 props.setFiles(
                     acceptedFiles.map((file) => Object.assign(file, {
-                        preview: URL.createObjectURL(file)
-                    }))
+                        preview: URL.createObjectURL(file),
+
+                    })
+                    )
                 );
                 props.showFrom(!props.show);
                 props.preView(true);

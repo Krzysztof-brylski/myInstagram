@@ -51,5 +51,4 @@ class User extends Authenticatable
     public function Info(){
         return $this->hasOne(UserInfo::class);
     }
-
 }
