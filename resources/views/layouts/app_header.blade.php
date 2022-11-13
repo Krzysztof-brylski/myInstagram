@@ -17,7 +17,7 @@
 @vite(['resources/js/searching/search.jsx'])
 @vite(['resources/js/posts/add/add_post.jsx'])
 @vite(['resources/js/posts/display/post_carousel.jsx'])
-<header class="bg-white py-3 position-fixed w-100">
+<header class="bg-white py-3">
     <div class="row align-items-center">
         <div class="col-xl-4 d-flex justify-content-end">
             <img  width="120px" src="{{asset('img/login-page/logo.png')}}">

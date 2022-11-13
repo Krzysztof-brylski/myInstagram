@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Post_images;
+use App\Models\Post_likes;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,7 @@ class PostController extends Controller
                 array_push($images_src,$img->image_url);
             }
             $response[$post->id]=[
+              'post_id'=>$post->id,
               'author'=>$author_data,
               'content'=> $post->content,
               'like_count'=> $post->like_count,
@@ -36,9 +38,13 @@ class PostController extends Controller
         return Response()->json($response,200);
     }
 
-    public function like(Post $post){
-        if($post->exists){
-            $post->like();
+    public function like(Post $Post){
+        if($Post->exists){
+            $Post->like();
+            $likes=new Post_likes();
+            $likes->user_id=Auth::user()->id;
+            $Post->PostLikes()->save($likes);
+            $Post->save();
             return Response()->json("",200);
         }
         return Response()->json("",500);

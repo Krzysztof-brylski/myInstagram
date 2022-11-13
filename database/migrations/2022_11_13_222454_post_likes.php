@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->integer('like_count')->constrained();
-            $table->string('content');
-            $table->timestamps();
+        Schema::create('post_likes', function (Blueprint $table) {
+            $table->bigInteger('user_id');
+            $table->foreignId('post_id')->constrained('posts');
         });
     }
 
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('post_likes');
     }
 };

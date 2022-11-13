@@ -25,6 +25,9 @@ class Post extends Model
     public function PostComments(){
         return $this->hasMany(Post_comments::class);
     }
+    public function PostLikes(){
+        return $this->hasMany(Post_likes::class);
+    }
 
     use HasFactory;
 }

@@ -22,7 +22,9 @@ function Post(param) {
 
     //likebtn
     const like=()=>{
-        axios.post();
+        const formData = new FormData();
+        formData.append('_token',userInfo.csrf);
+        axios.post(userInfo.postsLikeGateWay+"/"+param.data.post_id,formData);
     };
 
     return(
@@ -39,7 +41,7 @@ function Post(param) {
                 <img style={postImage}  src={param.storage+'/'+param.data.images[0]}/>
             </div>
             <div className="p-2">
-                <div> </div>
+                <div><strong onClick={like}>XDDD</strong> </div>
                 <div>
                     <div className="my-2"><strong>Liczba polubień: </strong> {param.data.like_count}</div>
                     <div><p>{param.data.content}</p></div>
