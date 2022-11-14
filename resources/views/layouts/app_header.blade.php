@@ -10,8 +10,8 @@
         storage:'{{asset('storage/')}}',
         postsGateWay:'{{route('get_posts',Auth::user()->id)}}',
         postsLikeGateWay:'{{url('post/')}}',
+        postsLikeCounterGateWay:'{{url('post/likes/')}}',
     }
-    console.log(userInfo)
 </script>
 @viteReactRefresh
 @vite(['resources/js/searching/search.jsx'])

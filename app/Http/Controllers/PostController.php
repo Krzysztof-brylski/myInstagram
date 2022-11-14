@@ -32,22 +32,38 @@ class PostController extends Controller
               'author'=>$author_data,
               'content'=> $post->content,
               'like_count'=> $post->like_count,
+              'liked'=>$post->isUserLiked(Auth::user()->id),
               'images'=> $images_src,
             ];
         }
         return Response()->json($response,200);
     }
 
-    public function like(Post $Post){
+    public function likeCount(Post $Post){
         if($Post->exists){
+            return Response()->json(array(
+                "like_count"=>$Post->like_count,
+                "liked"=>$Post->isUserLiked(Auth::user()->id)
+            ),200);
+        }
+    }
+
+    public function like(Post $Post){
+        $userId=Auth::user()->id;
+        if($Post->exists){
+            if($Post->isUserLiked($userId)){
+                $Post->disLike();
+                $Post->PostLikes()->where('user_id','=',$userId)->delete();
+                $Post->save();
+                return Response()->json("disLiked",200);
+            }
             $Post->like();
             $likes=new Post_likes();
-            $likes->user_id=Auth::user()->id;
+            $likes->user_id=$userId;
             $Post->PostLikes()->save($likes);
             $Post->save();
-            return Response()->json("",200);
+            return Response()->json("Liked",200);
         }
-        return Response()->json("",500);
     }
 
     public function store(Request $request){

@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function (){
         Route::resource('User',UserController::class)->only('show');
         Route::post('/post', [PostController::class,'store'])->name('add_post');
         Route::post('/post/{Post}', [PostController::class,'like'])->name('like_post');
+        Route::get('/post/likes/{Post}', [PostController::class,'likeCount'])->name('likeCount_post');
         Route::get('/post/{User}', [PostController::class,'show'])->name('get_posts');
     });
 

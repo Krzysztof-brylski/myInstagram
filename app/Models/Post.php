@@ -16,6 +16,19 @@ class Post extends Model
     public function like(){
         $this->like_count+=1;
     }
+    public function disLike(){
+        $this->like_count-=1;
+    }
+    public function listOfLikes(){
+        $listOfLikes=array();
+        foreach ($this->PostLikes as $like){
+            array_push($listOfLikes,$like->user_id);
+        }
+        return $listOfLikes;
+    }
+    public function isUserLiked($id){
+        return in_array($id,$this->listOfLikes());
+    }
     public function Author(){
         return User::query()->where('id','=',$this->user_id)->get();
     }
