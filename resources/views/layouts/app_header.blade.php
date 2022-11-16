@@ -8,6 +8,8 @@
         userName:"{{Auth::user()->name}}",
         userPhoto:"{{Auth::user()->Info->photo}}",
         storage:'{{asset('storage/')}}',
+    };
+    const posts={
         postsGateWay:'{{route('get_posts',Auth::user()->id)}}',
         postsLikeGateWay:'{{url('post/')}}',
         postsLikeCounterGateWay:'{{url('post/likes/')}}',

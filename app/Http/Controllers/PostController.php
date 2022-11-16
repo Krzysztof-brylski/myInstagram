@@ -36,7 +36,7 @@ class PostController extends Controller
               'images'=> $images_src,
             ];
         }
-        return Response()->json($response,200);
+        return Response()->json(array_reverse($response),200);
     }
 
     public function likeCount(Post $Post){
@@ -65,6 +65,9 @@ class PostController extends Controller
             return Response()->json("Liked",200);
         }
     }
+
+
+
 
     public function store(Request $request){
         if($request->hasFile('files')){
