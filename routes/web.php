@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostCommentsController as PostCommentsControllerAlias;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserInfoController;
@@ -32,6 +33,7 @@ Route::middleware('auth')->group(function (){
         Route::post('/post/{Post}', [PostController::class,'like'])->name('like_post');
         Route::get('/post/likes/{Post}', [PostController::class,'likeCount'])->name('likeCount_post');
         Route::get('/post/{User}', [PostController::class,'show'])->name('get_posts');
+        Route::get('/post/comments/{Post}', [PostCommentsControllerAlias::class,'getComments']);
     });
 
     Route::resource('UserInfo', UserInfoController::class)->only(

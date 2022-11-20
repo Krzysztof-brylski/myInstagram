@@ -24,8 +24,25 @@ class PostCommentsController extends Controller
     }
     public function getComments(Post $Post){
         if($Post->exists){
-            $comments=$Post->PostComments()->get();
-            return Response()->json($comments,200);
+            $comments=$Post->PostComments()->get()->all();
+            $Rresponse=array();
+            foreach ($comments  as $comment){
+                $author=$comment->Author()->all()[0];
+                array_push($Rresponse,array(
+                    "comment"=>array(
+                        "id"=>$comment->id,
+                        "content"=>$comment->content,
+                        "like_count"=>$comment->like_count,
+                    ),
+                    "author"=>array(
+                        "id"=>$author->id,
+                        "username"=>$author->username,
+                        "image"=>$author->Info->photo,
+                    )
+                ));
+
+            }
+            return Response()->json($Rresponse,200);
         }
         return Response()->json("PostDontExist",404);
     }

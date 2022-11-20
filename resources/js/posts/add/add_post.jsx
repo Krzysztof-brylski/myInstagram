@@ -6,7 +6,12 @@ import Modal from './add_post_modal';
 function Add_post(){
     const [OpenModal,setOpenModal]=useState(false);
     const toggleModal = () => {
-        setOpenModal(!OpenModal)
+        setOpenModal(!OpenModal);
+        if(!OpenModal){
+            document.body.style.overflowY="hidden";
+        }else{
+            document.body.style.overflowY="scroll";
+        }
     };
     return(
             <div onClick={toggleModal}>

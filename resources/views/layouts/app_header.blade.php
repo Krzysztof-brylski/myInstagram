@@ -13,6 +13,7 @@
         postsGateWay:'{{route('get_posts',Auth::user()->id)}}',
         postsLikeGateWay:'{{url('post/')}}',
         postsLikeCounterGateWay:'{{url('post/likes/')}}',
+        postCommentsGateWay:'{{url('post/comments/')}}',
     }
 </script>
 @viteReactRefresh

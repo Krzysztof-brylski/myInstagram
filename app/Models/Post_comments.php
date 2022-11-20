@@ -14,7 +14,7 @@ class Post_comments extends Model
         'content',
     ];
     public function Author(){
-        return $this->hasOne(User::class);
+        return User::query()->where('id','=',$this->user_id)->get();
     }
     public function Post(){
         return $this->belongsTo(Post::class);
