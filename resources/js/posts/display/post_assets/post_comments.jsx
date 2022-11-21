@@ -12,7 +12,7 @@ function Post_comments(param) {
 
     console.log(data);
     return(
-        <div className="d-flex flex-column overflowY-scroll">
+        <div className="d-flex flex-column overflowY-scroll" style={{minHeight:"320px"}}>
             {
                 data.map(x=>{return <Post_comment data={x} storage={storage}/>})
             }

@@ -4,6 +4,7 @@ import Post_author from "./post_author";
 import Post_content from "./post_content";
 import Post_btns from "./post_btns";
 import Post_comments from  './post_comments';
+import Add_comment from  './add_post_comment';
 function Post_preview(param) {
 
     if(param.show === false){return null;}
@@ -28,11 +29,12 @@ function Post_preview(param) {
                         <div className="col-xl-7" style={{width:"550px"}}>
                             <Post_slider storage={param.storage} data={param.data}/>
                         </div>
-                        <div className="col-xl-5" style={{width:"500px"}}>
+                        <div className="col-xl-5" style={{width:"500px",paddingLeft:"0px"}}>
                             <Post_author storage={param.storage} data={param.data}/>
                             <Post_btns  data={param.data} togglePostModal={null}/>
                             <Post_content data={param.data} />
                             <Post_comments post_id={param.data.post_id}/>
+                            <Add_comment post_id={param.data.post_id}/>
                         </div>
                     </div>
                 </div>

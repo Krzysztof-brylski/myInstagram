@@ -19,7 +19,7 @@ function Post_comment(param) {
     };
 
     return(
-        <div className="d-flex flex-row position-relative">
+        <div className="d-flex flex-row position-relative my-1">
             <div className="d-flex flex-row justify-content-between w-100 align-items-center" style={{padding:"0 20px 0 0"}}>
                 <img src={param.storage+'/'+param.data.author.image} style={commentAuthorIcon}/>
                 <div className="d-flex flex-row  w-75">
