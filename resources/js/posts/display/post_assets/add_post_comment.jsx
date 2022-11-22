@@ -26,7 +26,7 @@ function Add_comment(props) {
       color:"#0095f6",
     };
 
-    const btnAddComment=()=>{
+    const btnAddComment=event=>{
         if(comment != "") {
             const formData = new FormData();
             formData.append('_token', userInfo.csrf);
@@ -36,12 +36,14 @@ function Add_comment(props) {
 
                 });
         }
+        setComment('');
+        document.querySelector("#inputComment").value='';
         props.refreshComments();
     };
 
 
     return(<div  style={containerStyle} className="d-flex flex-row px-3 py-3 justify-content-center">
-        <input onChange={handleDescription} maxLength="200" style={inputStyle} className="w-100" type="text" placeholder="Dodaj komentarz"/>
+        <input id="inputComment" onChange={handleDescription} maxLength="200" style={inputStyle} className="w-100" type="text" placeholder="Dodaj komentarz"/>
         <span onClick={btnAddComment}  style={btnStyle} className="px-1">Opublikuj</span>
     </div>);
 
