@@ -5,9 +5,22 @@ import Post_content from "./post_content";
 import Post_btns from "./post_btns";
 import Post_comments from  './post_comments';
 import Add_comment from  './add_post_comment';
+import axios from "axios";
 function Post_preview(param) {
-
     if(param.show === false){return null;}
+
+    const[data,setData]=useState([]);
+
+    const getComments=()=>{
+        axios.get(posts.postCommentsGateWay+"/"+param.data.post_id)
+            .then(res=>{setData(Object.values(res.data))}).finally();
+
+    };
+    useEffect(()=>{
+        getComments();
+    },[]);
+
+
     return (
         <div className="modal-overlay" style={param.style}>
 
@@ -33,8 +46,8 @@ function Post_preview(param) {
                             <Post_author storage={param.storage} data={param.data}/>
                             <Post_btns  data={param.data} togglePostModal={null}/>
                             <Post_content data={param.data} />
-                            <Post_comments post_id={param.data.post_id}/>
-                            <Add_comment post_id={param.data.post_id}/>
+                            <Post_comments data={data}/>
+                            <Add_comment post_id={param.data.post_id} refreshComments={getComments}/>
                         </div>
                     </div>
                 </div>

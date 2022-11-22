@@ -11,9 +11,9 @@ function Add_comment(props) {
         setComment(event.target.value);
     };
 
-
     const containerStyle={
       borderTop:"solid rgb(217, 217, 217) 1px",
+        zIndex:44,
     };
     const inputStyle={
       outline:"none",
@@ -27,12 +27,18 @@ function Add_comment(props) {
     };
 
     const btnAddComment=()=>{
-        const formData = new FormData();
-        formData.append('_token',userInfo.csrf);
-        formData.append('comment',comment);
-        axios.post(posts.postCommentsGateWay+"/"+props.post_id,formData)
-            .then();
+        if(comment != "") {
+            const formData = new FormData();
+            formData.append('_token', userInfo.csrf);
+            formData.append('comment', comment);
+            axios.post(posts.postCommentsGateWay + "/" + props.post_id, formData)
+                .then(() => {
+
+                });
+        }
+        props.refreshComments();
     };
+
 
     return(<div  style={containerStyle} className="d-flex flex-row px-3 py-3 justify-content-center">
         <input onChange={handleDescription} maxLength="200" style={inputStyle} className="w-100" type="text" placeholder="Dodaj komentarz"/>

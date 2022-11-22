@@ -3,16 +3,10 @@ import Post_comment from  "./post_comment";
 import axios from "axios";
 
 
-function Post_comments(param) {
-    const[data,setData]=useState([]);
-    useEffect(()=>{
-        axios.get(posts.postCommentsGateWay+"/"+param.post_id)
-            .then(res=>{setData(Object.values(res.data))});
-    },[]);
-
-    console.log(data);
+function Post_comments({data}) {
+    if(data.length == 0){return null;}
     return(
-        <div className="d-flex flex-column overflowY-scroll" style={{minHeight:"320px"}}>
+        <div className="d-flex flex-column " style={{height:"320px",maxHeight:"320px",overflowY:"scroll"}}>
             {
                 data.map(x=>{return <Post_comment data={x} storage={storage}/>})
             }
