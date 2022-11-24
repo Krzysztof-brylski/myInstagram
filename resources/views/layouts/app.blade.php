@@ -19,7 +19,7 @@
     <script>var global = window</script>
 </head>
 <body>
-
+    @include('layouts/app_header')
     @yield('content')
 
 </body>

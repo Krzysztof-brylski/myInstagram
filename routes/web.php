@@ -33,7 +33,8 @@ Route::middleware('auth')->group(function (){
         Route::post('/post', [PostController::class,'store'])->name('add_post');
         Route::post('/post/{Post}', [PostController::class,'like'])->name('like_post');
         Route::get('/post/likes/{Post}', [PostController::class,'likeCount'])->name('likeCount_post');
-        Route::get('/post/{User}', [PostController::class,'show'])->name('get_posts');
+        Route::get('/post', [PostController::class,'show'])->name('get_posts');
+        Route::get('/post/count/{User}', [PostController::class,'postCount']);
         Route::get('/post/comments/{Post}', [PostCommentsControllerAlias::class,'getComments']);
         Route::post('/post/comments/{Post}', [PostCommentsControllerAlias::class,'comment']);
         Route::get('/post/comments/likes/{Post_comments}', [PostCommentsControllerAlias::class,'likeCount']);

@@ -12,8 +12,8 @@ use Illuminate\Http\JsonResponse;
 class PostController extends Controller
 {
 
-    public function show(User $User){
-        $posts=Post::query()->where('user_id','=',$User->id)->get()->all();
+    public function show(){
+        $posts=Post::query()->where('user_id','=',Auth::user()->id)->get()->all();
         $response=array();
         foreach ($posts as $post){
             $images=$post->PostImages;
@@ -28,15 +28,40 @@ class PostController extends Controller
                 array_push($images_src,$img->image_url);
             }
             $response[$post->id]=[
-              'post_id'=>$post->id,
-              'author'=>$author_data,
-              'content'=> $post->content,
-              'like_count'=> $post->like_count,
-              'liked'=>$post->isUserLiked(Auth::user()->id),
-              'images'=> $images_src,
+                'post_id'=>$post->id,
+                'author'=>$author_data,
+                'content'=> $post->content,
+                'like_count'=> $post->like_count,
+                'liked'=>$post->isUserLiked(Auth::user()->id),
+                'images'=> $images_src,
             ];
         }
         return Response()->json(array_reverse($response),200);
+    }
+
+    public function store(Request $request){
+        if($request->hasFile('files')){
+
+            $post = new Post();
+            $post->like_count=0;
+            $post->content=$request->get('content');
+            $post->user_id=Auth::user()->id;
+            $post->save();
+            foreach ($request->file('files') as $file){
+                $post_image= new Post_images();
+                $post_image->post_id=$post->id;
+                $post_image->image_url=$file->store('post_photos');
+
+                $post->PostImages()->save($post_image);
+            }
+            return Response()->json(["Post_Created"],200);
+        }
+        return Response()->json(["Error"],500);
+    }
+
+    public function postCount(User $User){
+       $postCount=Post::query()->where('user_id','=',$User->id)->count();
+       return Response($postCount,200);
     }
 
     public function likeCount(Post $Post){
@@ -69,23 +94,5 @@ class PostController extends Controller
 
 
 
-    public function store(Request $request){
-        if($request->hasFile('files')){
 
-            $post = new Post();
-            $post->like_count=0;
-            $post->content=$request->get('content');
-            $post->user_id=Auth::user()->id;
-            $post->save();
-            foreach ($request->file('files') as $file){
-                $post_image= new Post_images();
-                $post_image->post_id=$post->id;
-                $post_image->image_url=$file->store('post_photos');
-
-                $post->PostImages()->save($post_image);
-            }
-            return Response()->json(["Post_Created"],200);
-        }
-        return Response()->json(["Error"],500);
-    }
 }

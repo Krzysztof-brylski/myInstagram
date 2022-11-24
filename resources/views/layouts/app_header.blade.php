@@ -5,22 +5,26 @@
 
     const userInfo={
         csrf:document.getElementById('csrf-token').content,
+        userId:"{{Auth::user()->id}}",
         userName:"{{Auth::user()->name}}",
         userPhoto:"{{Auth::user()->Info->photo}}",
         storage:'{{asset('storage/')}}',
+
     };
     const posts={
-        postsGateWay:'{{route('get_posts',Auth::user()->id)}}',
+        postsGateWay:'{{route('get_posts')}}',
         postsLikeGateWay:'{{url('post/')}}',
         postsLikeCounterGateWay:'{{url('post/likes/')}}',
         postCommentsGateWay:'{{url('post/comments/')}}',
         postCommentsLikeGateWay:'{{url('post/comments/likes/')}}',
+        postCountGateWay:"{{url("/post/count/")}}",
     }
 </script>
 @viteReactRefresh
 @vite(['resources/js/searching/search.jsx'])
 @vite(['resources/js/posts/add/add_post.jsx'])
 @vite(['resources/js/posts/display/post_carousel.jsx'])
+@vite(['resources/js/user/user_page.jsx'])
 <header class="bg-white py-3">
     <div class="row align-items-center">
         <div class="col-xl-4 d-flex justify-content-end">
@@ -45,7 +49,6 @@
         </div>
     </div>
 </header>
-<div style="height: 70px"></div>
-<div id="post_carousel">
-</div>
+
+
 
