@@ -14,6 +14,7 @@
         postsLikeGateWay:'{{url('post/')}}',
         postsLikeCounterGateWay:'{{url('post/likes/')}}',
         postCommentsGateWay:'{{url('post/comments/')}}',
+        postCommentsLikeGateWay:'{{url('post/comments/likes/')}}',
     }
 </script>
 @viteReactRefresh

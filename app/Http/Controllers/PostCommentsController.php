@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post_comments_likes;
 use App\Models\Post;
 use App\Models\Post_comments;
 use Illuminate\Http\Request;
@@ -34,6 +35,7 @@ class PostCommentsController extends Controller
                     "comment"=>array(
                         "id"=>$comment->id,
                         "content"=>$comment->content,
+                        "liked"=>$comment->isUserLiked(Auth::user()->id),
                         "like_count"=>$comment->like_count,
                     ),
                     "author"=>array(
@@ -47,5 +49,36 @@ class PostCommentsController extends Controller
             return Response()->json($Rresponse,200);
         }
         return Response()->json("PostDontExist",404);
+    }
+
+    public function likeCount($Post_comments){
+        $Post_comment = Post_comments::find($Post_comments);
+        if($Post_comment != null){
+            return Response()->json(array(
+                "like_count"=>$Post_comment->like_count,
+                "liked"=>$Post_comment->isUserLiked(Auth::user()->id)
+            ),200);
+        }
+    }
+
+    public function likeComment($Post_comments)
+    {
+        $userId = Auth::user()->id;
+        $Post_comment = Post_comments::find($Post_comments);
+        if ($Post_comment != null) {
+            if ($Post_comment->isUserLiked($userId)) {
+                $Post_comment->disLike();
+                $Post_comment->CommentLikes()->where('user_id', '=', $userId)->delete();
+                $Post_comment->save();
+                return Response()->json("disLiked", 200);
+            }
+            $Post_comment->like();
+            $likes=new Post_comments_likes();
+            $likes->user_id=$userId;
+            $Post_comment->CommentLikes()->save($likes);
+            $Post_comment->save();
+           return Response()->json("Liked",200);
+        }
+        return Response()->json("",404);
     }
 }

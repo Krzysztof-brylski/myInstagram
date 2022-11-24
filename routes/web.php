@@ -5,6 +5,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserInfoController;
 use App\Http\Controllers\WelcomeController;
+use App\Models\Post_comments;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,6 +36,8 @@ Route::middleware('auth')->group(function (){
         Route::get('/post/{User}', [PostController::class,'show'])->name('get_posts');
         Route::get('/post/comments/{Post}', [PostCommentsControllerAlias::class,'getComments']);
         Route::post('/post/comments/{Post}', [PostCommentsControllerAlias::class,'comment']);
+        Route::get('/post/comments/likes/{Post_comments}', [PostCommentsControllerAlias::class,'likeCount']);
+        Route::post('/post/comments/likes/{Post_comments}', [PostCommentsControllerAlias::class,'likeComment']);
     });
 
     Route::resource('UserInfo', UserInfoController::class)->only(

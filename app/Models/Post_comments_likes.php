@@ -5,17 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Post_likes extends Model
+class Post_comments_likes extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'post_id',
+        'comment_id',
         'user_id',
     ];
-    public function Post(){
-        return $this->belongsTo(Post::class);
+    public function Comment(){
+        return $this->belongsTo(Post_comments::class);
     }
-
-
-
 }
