@@ -6,7 +6,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
+use function Symfony\Component\String\length;
 
 class User extends Authenticatable
 {
@@ -21,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'username',
+        'followers_count',
         'password',
     ];
 
@@ -43,10 +46,33 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function postCount(){
+        return Post::query()->where('user_id','=',$this->id)->count();
+    }
+
     public function hasInfo(){
         return !is_null($this->Info);
     }
 
+    public function followUser($id){
+
+        $db_name="user_follows_".$this->name;
+        $targetUser=User::find($id)->all()[0];
+        DB::table($db_name)->insert(['user_id'=>$id]);
+        $targetUser->followers_count+=1;
+        $targetUser->save();
+    }
+    public function cancelFollowUser($id){
+        $db_name="user_follows_".$this->name;
+        $targetUser=User::find($id)->all()[0];
+        DB::table($db_name)->where("user_id",'=',$id)->delete();
+        $targetUser->followers_count-=1;
+        $targetUser->save();
+    }
+    public function isUserFollowed($id){
+        $db_name="user_follows_".$this->name;
+        return !DB::table($db_name)->where("user_id",'=',$id)->limit(1)->get()->isEmpty();
+    }
 
     public function Info(){
         return $this->hasOne(UserInfo::class);

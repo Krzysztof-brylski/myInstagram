@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserInfoRequest;
 use App\Models\User;
 use App\Models\UserInfo;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserInfoController extends Controller
 {
@@ -38,6 +41,12 @@ class UserInfoController extends Controller
         $data=$request->validated();
         $info = new UserInfo($data);
 
+        Schema::create("user_follows_".$User->name, function (Blueprint $table) {
+            $table->id();
+            $table->foreignId("user_id")->constrained("users");
+            $table->timestamps();
+        });
+
         if($request->hasFile('photo')){
 
             $info->photo=$request->file('photo')->store('user_photos');
@@ -45,7 +54,6 @@ class UserInfoController extends Controller
             return redirect(route('home'));
         }
         $info->photo = "user_photos/default.png";
-        $User->Info()->save($info);
         return redirect(route('home'));
     }
 

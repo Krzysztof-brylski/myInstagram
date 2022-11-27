@@ -27,13 +27,14 @@ Auth::routes();
 
 Route::middleware('auth')->group(function (){
     Route::middleware('ExistUserInfo')->group(function (){
+        Route::post('/user/follow/{User}',[UserController::class,'follow']);
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
         Route::get('/user/search', [App\Http\Controllers\SearchController::class, 'search_user'])->name('search_user');
         Route::resource('User',UserController::class)->only('show');
         Route::post('/post', [PostController::class,'store'])->name('add_post');
         Route::post('/post/{Post}', [PostController::class,'like'])->name('like_post');
         Route::get('/post/likes/{Post}', [PostController::class,'likeCount'])->name('likeCount_post');
-        Route::get('/post', [PostController::class,'show'])->name('get_posts');
+        Route::get('/post/{User}', [PostController::class,'show'])->name('get_posts');
         Route::get('/post/count/{User}', [PostController::class,'postCount']);
         Route::get('/post/comments/{Post}', [PostCommentsControllerAlias::class,'getComments']);
         Route::post('/post/comments/{Post}', [PostCommentsControllerAlias::class,'comment']);

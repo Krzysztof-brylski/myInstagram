@@ -79,6 +79,7 @@ body{
     height: 300px;
     overflow-x: hidden;
     overflow-y: scroll;
+    z-index: 9999;
 }
 .search-form-result-container{
     position: relative;

@@ -12,8 +12,11 @@ use Illuminate\Http\JsonResponse;
 class PostController extends Controller
 {
 
-    public function show(){
-        $posts=Post::query()->where('user_id','=',Auth::user()->id)->get()->all();
+    public function show(User $User){
+        if(!$User->exists){
+            return Response()->json("Error",303);
+        }
+        $posts=Post::query()->where('user_id','=',$User->id)->get()->all();
         $response=array();
         foreach ($posts as $post){
             $images=$post->PostImages;
@@ -60,8 +63,7 @@ class PostController extends Controller
     }
 
     public function postCount(User $User){
-       $postCount=Post::query()->where('user_id','=',$User->id)->count();
-       return Response($postCount,200);
+       return Response($User->postCount(),200);
     }
 
     public function likeCount(Post $Post){

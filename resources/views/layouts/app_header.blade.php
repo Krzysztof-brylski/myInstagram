@@ -3,16 +3,17 @@
     const user_show_url='{{url('User/')}}';
     const storage='{{asset('storage/')}}';
 
+    const followGateWay='{{url("user/follow/")}}';
+
     const userInfo={
         csrf:document.getElementById('csrf-token').content,
         userId:"{{Auth::user()->id}}",
         userName:"{{Auth::user()->name}}",
         userPhoto:"{{Auth::user()->Info->photo}}",
         storage:'{{asset('storage/')}}',
-
     };
     const posts={
-        postsGateWay:'{{route('get_posts')}}',
+        postsGateWay:'{{url('post/')}}',
         postsLikeGateWay:'{{url('post/')}}',
         postsLikeCounterGateWay:'{{url('post/likes/')}}',
         postCommentsGateWay:'{{url('post/comments/')}}',
@@ -24,7 +25,7 @@
 @vite(['resources/js/searching/search.jsx'])
 @vite(['resources/js/posts/add/add_post.jsx'])
 @vite(['resources/js/posts/display/post_carousel.jsx'])
-@vite(['resources/js/user/user_page.jsx'])
+
 <header class="bg-white py-3">
     <div class="row align-items-center">
         <div class="col-xl-4 d-flex justify-content-end">
