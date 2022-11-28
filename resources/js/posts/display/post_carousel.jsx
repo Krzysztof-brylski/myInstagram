@@ -2,18 +2,16 @@ import React,{useState,useEffect} from 'react';
 import ReactDOM from "react-dom";
 import Post from "./post";
 import axios from "axios";
+import useAxios from "axios-hooks";
+import Loading_screen from "../../helpers/loading";
 
 function Post_carousel() {
-    const[data,setData]=useState([]);
-    useEffect(()=>{
-        axios.get(posts.postsProposedGateWay+"/"+userInfo.userId)
-            .then(res=>{setData(Object.values(res.data))});
-    },[]);
-
+    const [{ data, loading, error }, refetch] = useAxios(posts.postsProposedGateWay+"/"+userInfo.userId);
+    if (loading) return <Loading_screen/>;
     return(
         <div className="d-flex flex-column justify-content-center align-items-center">
             {
-                data.map(x=>{return <Post data={x} storage={storage}/>})
+                Object.values(data).map(x=>{return <Post data={x} storage={storage}/>})
             }
         </div>
     );

@@ -36,7 +36,7 @@ class PostPackDto{
         $table_name="user_follows_".$User->username;
         $ids=DB::table($table_name)->get();
         foreach($ids as $id){
-            $posts=Post::query()->where('user_id','=',$id->user_id)->get()->all();
+            $posts=Post::query()->where('user_id','=',$id->user_id)->orderBy('like_count','DESC')->get()->all();
             foreach($posts as $post){
                 $this->pushPost($post);
             }
@@ -55,11 +55,6 @@ class PostPackDto{
         //get post from followed arr
 
     } //build into working on front-end assoc arr
-
-
-    function isEmpty(){
-        return empty($this->Posts);
-    }
 
     function getPostPac(){
         return $this->PostsPack;

@@ -6,19 +6,14 @@ import Post_btns from "./post_btns";
 import Post_comments from  './post_comments';
 import Add_comment from  './add_post_comment';
 import axios from "axios";
+import useAxios from "axios-hooks";
+import Loading_screen from "../../../helpers/loading";
 function Post_preview(param) {
     if(param.show === false){return null;}
 
-    const[data,setData]=useState([]);
 
-    const getComments=()=>{
-        axios.get(posts.postCommentsGateWay+"/"+param.data.post_id)
-            .then(res=>{setData(Object.values(res.data))}).finally();
-
-    };
-    useEffect(()=>{
-        getComments();
-    },[]);
+    const [{ data, loading, error }, refetch] = useAxios(posts.postCommentsGateWay+"/"+param.data.post_id);
+    if (loading) return <Loading_screen/>;
 
 
     return (
@@ -47,7 +42,7 @@ function Post_preview(param) {
                             <Post_btns  data={param.data} togglePostModal={null}/>
                             <Post_content data={param.data} />
                             <Post_comments data={data}/>
-                            <Add_comment post_id={param.data.post_id} refreshComments={getComments}/>
+                            <Add_comment post_id={param.data.post_id} refreshComments={refetch}/>
                         </div>
                     </div>
                 </div>

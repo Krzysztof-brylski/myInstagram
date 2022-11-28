@@ -14,8 +14,13 @@ const Modal = ({open,onClose}) =>{
         size={width:"60%"};
     }
 
+    const postModalStyle={
+        inset:`${window.scrollY}px 0 0 0 `
+    };
+
+
     return(
-        <div className="modal-overlay">
+        <div className="modal-overlay" style={postModalStyle}>
             <div className="modal-close-btn-container">
                 <p onClick={onClose} className="modal-close-btn m-3">
                     <svg aria-label="Zamknij" className="x1n2onr6 x1lliihq" color="#ffffff" fill="#ffffff" height="18"
