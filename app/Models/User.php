@@ -55,22 +55,21 @@ class User extends Authenticatable
     }
 
     public function followUser($id){
-
-        $db_name="user_follows_".$this->name;
+        $db_name="user_follows_".$this->username;
         $targetUser=User::find($id)->all()[0];
         DB::table($db_name)->insert(['user_id'=>$id]);
         $targetUser->followers_count+=1;
         $targetUser->save();
     }
     public function cancelFollowUser($id){
-        $db_name="user_follows_".$this->name;
+        $db_name="user_follows_".$this->username;
         $targetUser=User::find($id)->all()[0];
         DB::table($db_name)->where("user_id",'=',$id)->delete();
         $targetUser->followers_count-=1;
         $targetUser->save();
     }
     public function isUserFollowed($id){
-        $db_name="user_follows_".$this->name;
+        $db_name="user_follows_".$this->username;
         return !DB::table($db_name)->where("user_id",'=',$id)->limit(1)->get()->isEmpty();
     }
 

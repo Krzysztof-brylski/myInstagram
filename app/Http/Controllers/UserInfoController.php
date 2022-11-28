@@ -41,7 +41,7 @@ class UserInfoController extends Controller
         $data=$request->validated();
         $info = new UserInfo($data);
 
-        Schema::create("user_follows_".$User->name, function (Blueprint $table) {
+        Schema::create("user_follows_".$User->username, function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id")->constrained("users");
             $table->timestamps();

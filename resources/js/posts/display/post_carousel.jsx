@@ -6,7 +6,7 @@ import axios from "axios";
 function Post_carousel() {
     const[data,setData]=useState([]);
     useEffect(()=>{
-        axios.get(posts.postsGateWay+"/"+userInfo.userId)
+        axios.get(posts.postsProposedGateWay+"/"+userInfo.userId)
             .then(res=>{setData(Object.values(res.data))});
     },[]);
 

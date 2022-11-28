@@ -18,7 +18,7 @@ class SearchController extends Controller
 
         if($name !=null){
             $query=User::query();
-            $result=$query->where('username','like',"$name%")->limit(2)->get();
+            $result=$query->where('username','like',"$name%")->orWhere('name','like',"$name%")->limit(15)->get();
             $json=array();
             foreach ($result as $user){
                 $json[$user->id]=[

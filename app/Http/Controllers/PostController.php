@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
-
+use App\Dto\PostPackDto;
 class PostController extends Controller
 {
 
@@ -40,6 +40,12 @@ class PostController extends Controller
             ];
         }
         return Response()->json(array_reverse($response),200);
+    }
+
+    public function proposedPosts(User $User){
+        $proposing= new PostPackDto();
+        $proposing->build($User);
+        return Response()->json($proposing->getPostPac(),200);
     }
 
     public function store(Request $request){
