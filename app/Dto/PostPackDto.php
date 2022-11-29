@@ -9,6 +9,8 @@ use function Symfony\Component\String\length;
 class PostPackDto{
     private $PostsPack=array();
 
+
+
     function pushPost($post){
         $images=$post->PostImages;
         $author=$post->Author()->all()[0];
@@ -43,21 +45,22 @@ class PostPackDto{
 
         }
         $len=count($this->PostsPack);
-       if($len < 20){
-           $posts=Post::query()->orderBy('like_count','DESC')->limit(20-$len)->get()->all();
-           foreach($posts as $post){
-               if(!in_array($post,$this->getPostPac())){
-                   $this->pushPost($post);
-               }
-           }
-       }
+        if($len < 20){
+            $posts=Post::query()->orderBy('like_count','DESC')->limit(20-$len)->get()->all();
+            foreach($posts as $post){
+                if(!in_array($post,$this->getPostPac())){
+                    $this->pushPost($post);
+                }
+            }
+        }
         //get followed_acc arr
         //get post from followed arr
 
     } //build into working on front-end assoc arr
 
-    function getPostPac(){
-        return $this->PostsPack;
+    function getPostPac($page=0, $range=10){
+        $offset=($page-1)*$range;
+        return array_slice($this->PostsPack,$offset,$range);
     }
 
 }

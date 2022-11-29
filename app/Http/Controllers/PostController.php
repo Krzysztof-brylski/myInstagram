@@ -11,6 +11,11 @@ use Illuminate\Http\JsonResponse;
 use App\Dto\PostPackDto;
 class PostController extends Controller
 {
+    private $proposing;
+
+    public function __construct(){
+        $this->proposing= new PostPackDto();
+    }
 
     public function show(User $User){
         if(!$User->exists){
@@ -42,10 +47,13 @@ class PostController extends Controller
         return Response()->json(array_reverse($response),200);
     }
 
-    public function proposedPosts(User $User){
-        $proposing= new PostPackDto();
-        $proposing->build($User);
-        return Response()->json($proposing->getPostPac(),200);
+    public function proposedPosts(Request $request){
+        $this->proposing->build(Auth::user());
+        if($request->has("page")){
+            $page=$request->page;
+            return Response()->json($this->proposing->getPostPac($page),200);
+        }
+        return Response()->json("",400);
     }
 
     public function store(Request $request){
@@ -65,7 +73,7 @@ class PostController extends Controller
             }
             return Response()->json(["Post_Created"],200);
         }
-        return Response()->json(["Error"],500);
+        return Response()->json(["Error"],400);
     }
 
     public function postCount(User $User){

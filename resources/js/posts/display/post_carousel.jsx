@@ -6,8 +6,27 @@ import useAxios from "axios-hooks";
 import Loading_screen from "../../helpers/loading";
 
 function Post_carousel() {
-    const [{ data, loading, error }, refetch] = useAxios(posts.postsProposedGateWay+"/"+userInfo.userId);
-    if (loading) return <Loading_screen/>;
+    const[page,setPage]=useState(1);
+    const[data,setData]=useState([]);
+    const[loading, setLoading]=useState(true);
+    useEffect(async()=>{
+        const response = await axios.get(posts.postsProposedGateWay+"/"+userInfo.userId,{params:{"page":page}});
+        setData((prev)=>[...prev,...response.data]);
+        setLoading(false);
+    },[page]);
+
+
+
+    useEffect(()=>{
+        document.addEventListener("scroll",()=>{
+            if(document.documentElement.scrollHeight - window.scrollY <1000){
+                setPage((page)=>page+1)
+            }
+        })
+    },[]);
+
+    if(loading)return <Loading_screen/>;
+
     return(
         <div className="d-flex flex-column justify-content-center align-items-center">
             {
