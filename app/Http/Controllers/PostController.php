@@ -51,7 +51,11 @@ class PostController extends Controller
         $this->proposing->build(Auth::user());
         if($request->has("page")){
             $page=$request->page;
-            return Response()->json($this->proposing->getPostPac($page),200);
+
+            $response=$this->proposing->getPostPac($page);
+            $response["max_pages"]=$this->proposing->getMaxPages();
+
+            return Response()->json($response,200);
         }
         return Response()->json("",400);
     }

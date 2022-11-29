@@ -57,7 +57,9 @@ class PostPackDto{
         //get post from followed arr
 
     } //build into working on front-end assoc arr
-
+    function getMaxPages(){
+        return ceil(count($this->PostsPack)/10);
+    }
     function getPostPac($page=0, $range=10){
         $offset=($page-1)*$range;
         return array_slice($this->PostsPack,$offset,$range);
