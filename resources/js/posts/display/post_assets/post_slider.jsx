@@ -3,7 +3,7 @@ import React,{useState,useEffect} from 'react';
 function Post_slider(param) {
 
     const [currentSlide,setCurrentSlide]=useState(0);
-
+    const [displayControl,setDisplayControl]=useState(true);
     const postImage={
         padding:"1px",
         width:"inherit",
@@ -55,6 +55,7 @@ function Post_slider(param) {
         }
         return(<span className="mx-1"  style={pointer}></span>)
     });
+
     const nextSlide=()=>{
         if(currentSlide+1 < slides.length){
             setCurrentSlide(currentSlide+1);
@@ -66,18 +67,29 @@ function Post_slider(param) {
         }
     };
 
+    useEffect(()=>{
+        if(slides.length === 1){
+            setDisplayControl(false)
+        }
+    });
+
     return(
         <div className="h-100 w-100 position-relative">
-            <div className="position-absolute top-50 w-100 h-50 d-flex flex-column">
-                <div className="w-100 d-flex justify-content-between">
-                    <span onClick={pervSlide} className="p-2" style={sliderControl}>❰</span>
-                    <span onClick={nextSlide} className="p-2" style={sliderControl}>❱</span>
-                </div>
-                <div className="d-flex flex-row justify-content-center h-75 py-3" style={{alignItems:"flex-end"}}>
-                    {slidePointers}
-                </div>
+            {
+                displayControl &&
+                (
+                    <div className="position-absolute top-50 w-100 h-50 d-flex flex-column">
 
-            </div>
+                        <div className="w-100 d-flex justify-content-between">
+                            <span onClick={pervSlide} className="p-2" style={sliderControl}>❰</span>
+                            <span onClick={nextSlide} className="p-2" style={sliderControl}>❱</span>
+                        </div>
+                        <div className="d-flex flex-row justify-content-center h-75 py-3" style={{alignItems:"flex-end"}}>
+                            {slidePointers}
+                        </div>
+                    </div>
+                )
+            }
             {slides[currentSlide]}
         </div>
     )

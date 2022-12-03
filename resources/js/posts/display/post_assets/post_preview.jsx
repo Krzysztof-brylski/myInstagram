@@ -13,7 +13,7 @@ function Post_preview(param) {
 
 
     const [{ data, loading, error }, refetch] = useAxios(posts.postCommentsGateWay+"/"+param.data.post_id);
-    if (loading) return <Loading_screen/>;
+    if (loading) return null;
 
 
     return (

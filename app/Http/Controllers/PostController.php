@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 use App\Dto\PostPackDto;
+use Illuminate\Support\Facades\Storage;
+
 class PostController extends Controller
 {
     private $proposing;
@@ -19,7 +21,7 @@ class PostController extends Controller
 
     public function show(User $User){
         if(!$User->exists){
-            return Response()->json("Error",303);
+            return Response()->json("Error",400);
         }
         $posts=Post::query()->where('user_id','=',$User->id)->get()->all();
         $response=array();
@@ -57,10 +59,11 @@ class PostController extends Controller
 
             return Response()->json($response,200);
         }
-        return Response()->json("",400);
+        return Response()->json("Error",400);
     }
 
     public function store(Request $request){
+
         if($request->hasFile('files')){
 
             $post = new Post();
@@ -75,9 +78,10 @@ class PostController extends Controller
 
                 $post->PostImages()->save($post_image);
             }
-            return Response()->json(["Post_Created"],200);
+            return Response()->json("Post_Created",201);
         }
-        return Response()->json(["Error"],400);
+        return Response()->json("Error",400);
+
     }
 
     public function postCount(User $User){
@@ -91,6 +95,7 @@ class PostController extends Controller
                 "liked"=>$Post->isUserLiked(Auth::user()->id)
             ),200);
         }
+        return Response()->json("Error",400);
     }
 
     public function like(Post $Post){
@@ -100,7 +105,7 @@ class PostController extends Controller
                 $Post->disLike();
                 $Post->PostLikes()->where('user_id','=',$userId)->delete();
                 $Post->save();
-                return Response()->json("disLiked",200);
+                return Response()->json("Disliked",200);
             }
             $Post->like();
             $likes=new Post_likes();
@@ -109,9 +114,37 @@ class PostController extends Controller
             $Post->save();
             return Response()->json("Liked",200);
         }
+        return Response()->json("Error",400);
     }
 
+    public function delete(Request $request){
+        if(!$request->has("user_id") and !$request->has("post_id")){
+            return Response()->json("Error",400);
+        }
+        $userId=$request->user_id;
+        $postId=$request->post_id;
+        $post=Post::find($postId);
 
+        if($userId != Auth::user()->id or $userId != $post->Author()->id){
+            return  Response()->json("error",403);
+        }
+
+        $images=$post->PostImages()->get();
+        foreach ($images as $image){
+            if(Storage::exists($image->image_url)){
+                Storage::delete($image->image_url);
+            }
+            $image->delete();
+        }
+        $comments=$post->PostComments()->get();
+        foreach ($comments as $comment){
+            $comment->CommentLikes()->delete();
+            $comment->delete();
+        }
+        $post->PostLikes()->delete();
+        $post->delete();
+        return Response()->json("ok",200);
+    }
 
 
 

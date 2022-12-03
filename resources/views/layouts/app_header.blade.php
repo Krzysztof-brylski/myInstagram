@@ -13,7 +13,8 @@
     };
     const posts={
         postsGateWay:'{{url('post/')}}',
-        postsProposedGateWay:'{{url('post/proposing/')}}',
+        postsDeleteGateWay:'{{url('delete/post')}}',
+        postsProposedGateWay:'{{url('proposing/')}}',
         postsLikeGateWay:'{{url('post/')}}',
         postsLikeCounterGateWay:'{{url('post/likes/')}}',
         postCommentsGateWay:'{{url('post/comments/')}}',

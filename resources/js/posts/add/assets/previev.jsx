@@ -65,7 +65,7 @@ function Preview(props) {
                   slides[currentSlide]
               }
           </div>
-            <SendForm show={props.sendform} files={props.files} userInfo={userInfo} />
+            <SendForm show={props.sendform} files={props.files} userInfo={userInfo} killModal={props.killModal} />
         </div>
     );
 }

@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import Post from "./post";
 import axios from "axios";
 import Loading_screen from "../../helpers/loading";
+import Error_modal from "../../helpers/error";
+import Success_modal from "../../helpers/success";
 
 function Post_carousel() {
     const[page,setPage]=useState(1);
@@ -10,14 +12,14 @@ function Post_carousel() {
     const[loading, setLoading]=useState(true);
     const[maxPages,setMaxPages]=useState(0);
     useEffect(async()=>{
-        const response = await axios.get(posts.postsProposedGateWay+"/"+userInfo.userId,{params:{"page":page}});
+        const response = await axios.get(posts.postsProposedGateWay,{params:{"page":page}});
         setMaxPages(parseInt(response.data['max_pages']));
         let data=Object.values(response.data);
         data.pop();
         setData((prev)=>[...prev,...data]);
         setLoading(false);
 
-    },[page]);
+    },[page,maxPages]);
 
     const handleScroll=()=>{
 
@@ -35,6 +37,7 @@ function Post_carousel() {
         }
     },[page,maxPages]);
     return(
+
         <div className="d-flex flex-column justify-content-center align-items-center">
             {
                 Object.values(data).map(x=>{return <Post data={x} storage={storage}/>})

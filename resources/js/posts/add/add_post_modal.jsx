@@ -38,7 +38,7 @@ const Modal = ({open,onClose}) =>{
                         <h5 className="text-center">Utwórz nowy post</h5>
                     </div>
                     <ImageForm  setFiles={setFiles} show={showFrom} showFrom={setFormShow} preView={setPreView}/>
-                    <Preview show={preView} files={files} setFiles={setFiles} userInfo={userInfo} sendform={showSendForm} showsendform={setShowSendForm} />
+                    <Preview show={preView} files={files} setFiles={setFiles} userInfo={userInfo} sendform={showSendForm} showsendform={setShowSendForm} killModal={onClose} />
                 </div>
             </div>
         </div>

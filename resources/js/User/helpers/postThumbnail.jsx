@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
 import Post_preview from "../../posts/display/post_assets/post_preview";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faLayerGroup} from '@fortawesome/free-solid-svg-icons'
 import Post_hover from "./post_hover";
+
 function Post_thumbnail(param) {
     if(param.data == null){return null;}
     const[showPreview,setShowPreview]=useState(false);
@@ -23,7 +26,9 @@ function Post_thumbnail(param) {
 
 
 
-    const gallery=(<p className="position-absolute">xd</p>);
+    const gallery=(<div className="position-absolute d-flex justify-content-end w-100 p-2">
+        <FontAwesomeIcon icon={faLayerGroup} size={"lg"}/>
+    </div>);
     let icon=(<p className="position-absolute"> </p>);
     param.data.images.length >1 ? icon=gallery:null;
 

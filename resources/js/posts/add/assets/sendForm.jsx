@@ -1,14 +1,26 @@
 import React,{useState} from 'react';
+import Error_modal from "../../../helpers/error";
+import Success_modal from "../../../helpers/success";
 
 
 function SendForm(props) {
 
     if(!props.show) return null;
     const[message,setMessage]=useState('');
+    const[displayError,setDisplayError]=useState(false);
+    const[displaySuccess,setDisplaySuccess]=useState(false);
+
+
     const handleDescription=event=>{
         setMessage(event.target.value);
     };
 
+    const ErrorModalToggle=()=>{
+        setDisplayError(!displayError);
+    };
+    const SuccessModalToggle=()=>{
+        setDisplaySuccess(!displaySuccess);
+    };
     const submit=()=>{
         //console.log(props.url);
         const formData = new FormData();
@@ -17,10 +29,16 @@ function SendForm(props) {
             formData.append('files[]',props.files[i]);
         }
         formData.append('content',message);
-        fetch('http://127.0.0.1:8000/post/',{
-            method: 'POST',
-            body: formData
-        }).then(function(res){console.log(res) });
+         fetch('http://127.0.0.1:8000/post/',{
+             method: 'POST',
+             body: formData
+        }).then(function(res){
+            if(res.status === 201){
+                SuccessModalToggle();
+            }else{
+                ErrorModalToggle();
+            }
+        });
     };
 
     return(
@@ -39,7 +57,11 @@ function SendForm(props) {
                 </textarea>
                 <button className="form-submit" type='button' onClick={submit}>Udostępnij</button>
             </form>
+            <Error_modal display={displayError} toggle={ErrorModalToggle} killCallback={null}/>
+            <Success_modal display={displaySuccess} toggle={SuccessModalToggle}  killCallback={props.killModal}/>
+
         </div>
+
     );
 
 }
