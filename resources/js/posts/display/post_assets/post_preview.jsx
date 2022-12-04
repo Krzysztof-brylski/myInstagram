@@ -13,7 +13,7 @@ function Post_preview(param) {
 
 
     const [{ data, loading, error }, refetch] = useAxios(posts.postCommentsGateWay+"/"+param.data.post_id);
-    if (loading) return null;
+    //if (loading) return null;
 
 
     return (
@@ -31,7 +31,7 @@ function Post_preview(param) {
                 </p>
             </div>
             <div className="d-flex justify-content-center align-items-center h-100">
-
+                {loading == true ?  <Loading_screen color="white" size="100px"/> : (
                 <div className="content" style={{height:"550px"}} onClick={(event => {event.stopPropagation()})}>
                     <div className="row" >
                         <div className="col-xl-7" style={{width:"550px"}}>
@@ -46,6 +46,7 @@ function Post_preview(param) {
                         </div>
                     </div>
                 </div>
+                )}
             </div>
         </div>
     );

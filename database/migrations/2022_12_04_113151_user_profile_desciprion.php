@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->integer("followers_count")->after("id")->default(0);
+        Schema::table('user_infos', function (Blueprint $table) {
+            $table->string('description',500);
         });
     }
 
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropColumns('users', ['followers_count']);
+        Schema::dropColumns('user_infos', ['description']);
     }
 };

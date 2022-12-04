@@ -16,7 +16,6 @@ function Post_btns(param) {
                 if(res.data.like_count !== null && res.data.like_count !== undefined){
                     setCounter(res.data.like_count);
                     setLiked(res.data.liked);
-                    console.log(res.data);
                 }
             });
     };
@@ -31,8 +30,8 @@ function Post_btns(param) {
     return(
         <div className="py-2">
             <div className="d-flex">
-                <div className="px-1"><FontAwesomeIcon style={likeBtn} onClick={like}  icon={faHeart} size={"2x"}/></div>
-                <div className="px-1"><FontAwesomeIcon onClick={param.togglePostModal} icon={faCommentDots} size={"2x"}/></div>
+                <div className="px-1"><FontAwesomeIcon className="pointer-svg" style={likeBtn} onClick={like}  icon={faHeart} size={"2x"}/></div>
+                <div className="px-1"><FontAwesomeIcon className="pointer-svg" onClick={param.togglePostModal} icon={faCommentDots} size={"2x"}/></div>
             </div>
             <div className="my-2"><strong>Liczba polubień: </strong> {counter}</div>
         </div>

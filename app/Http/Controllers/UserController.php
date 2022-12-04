@@ -22,8 +22,9 @@ class UserController extends Controller
             }
             return view('user/show',
                 ['user'=>$User,
-                    'posts_count'=>$User->postCount(),
-                    'followers_count'=>$User->followers_count,
+                 'posts_count'=>$User->postCount(),
+                 'followers_count'=>$User->followers_count,
+                 'followed'=>Auth::user()->isUserFollowed($User->id),
                 ]);
         }
     }
@@ -31,11 +32,11 @@ class UserController extends Controller
     public function follow(User $User){
         if($User->exists and Auth::user()->id != $User->id ){
             if(Auth::user()->isUserFollowed($User->id)){
-                Auth::user()->cancelFollowUser($User->id);
-                return Response()->json("UnFollowed",200);
+                $count=Auth::user()->cancelFollowUser($User->id);
+                return Response()->json(["status"=>"unFollowed","followers_count"=>$count],200);
             }
-            Auth::user()->followUser($User->id);
-            return Response()->json("Followed",200);
+            $count=Auth::user()->followUser($User->id);
+            return Response()->json(["status"=>"Followed","followers_count"=>$count],200);
         }
         return Response()->json("UserDontExist",404);
     }

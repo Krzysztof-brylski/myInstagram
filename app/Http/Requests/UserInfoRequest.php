@@ -26,6 +26,7 @@ class UserInfoRequest extends FormRequest
     {
         return [
             'birth_day'=>'required',
+            'description'=>'required|max:500',
             'photo'=>'nullable',
         ];
     }

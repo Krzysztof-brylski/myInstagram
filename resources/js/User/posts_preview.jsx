@@ -9,6 +9,7 @@ function My_posts_preview() {
 
     const [{ data, loading, error }, refetch] = useAxios(posts.postsGateWay+"/"+selectedUserId);
     if (loading) return <Loading_screen/>;
+
     return(
         <div className="row my-5 mx-5 justify-content-center h-50" style={{borderTop:"1px solid rgb(217,217,217)"}}>
             {data.length === 0 && <No_posts/> }

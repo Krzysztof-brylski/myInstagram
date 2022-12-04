@@ -117,6 +117,9 @@ class PostController extends Controller
         return Response()->json("Error",400);
     }
 
+
+
+
     public function delete(Request $request){
         if(!$request->has("user_id") and !$request->has("post_id")){
             return Response()->json("Error",400);

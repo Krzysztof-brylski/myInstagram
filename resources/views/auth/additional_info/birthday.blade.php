@@ -12,5 +12,11 @@
     <p>Musisz podać swoją datę urodzenia</p>
 
     <p>Podaj własną datę urodzenia, nawet jeśli jest to konto firmy, zwierzaka lub inne</p>
+
+    <h5>Dodaj opis swojego proflu</h5>
+    <textarea form="additional_info" class="w-100 description-input" placeholder="Opis twojego profilu" name="description" maxlength="500" required>
+
+    </textarea>
+
     <button class="form-submit btn-next-element" type="button"> Dalej </button>
 </div>

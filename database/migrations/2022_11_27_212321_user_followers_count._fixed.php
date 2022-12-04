@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer("followers_count")->after("id")->default(0);
+            $table->integer("followers_count")->after("password")->default(0);
         });
     }
 

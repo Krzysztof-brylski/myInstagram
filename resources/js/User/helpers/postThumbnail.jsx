@@ -33,7 +33,7 @@ function Post_thumbnail(param) {
     param.data.images.length >1 ? icon=gallery:null;
 
     return(
-        <div className="col-xl-4  m-4 p-0" style={thumbnailStyle}   onClick={togglePostModal}>
+        <div className="col-xl-4  m-4 p-0 cursor-pointer" style={thumbnailStyle}   onClick={togglePostModal}>
             <div className="position-relative w-100 h-100"
                  onMouseEnter={()=>{setShowHover(true);}}
                  onMouseLeave={()=>{setShowHover(false);}}

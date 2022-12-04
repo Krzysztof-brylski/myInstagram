@@ -33,15 +33,17 @@ function Post_author(param) {
     },[clicked,result]);
 
     return(
-        <div style={postAuthorContainer} className="py-2">
+        <div style={postAuthorContainer} className="py-2" >
             <div className="mx-2">
-                <img src={param.storage+'/'+param.data.author.image} className="searching-result-img" width="50px" height="50px"/>
+                <a href="#" className="w-100 h-100 pointer-svg">
+                    <img src={param.storage+'/'+param.data.author.image} className="searching-result-img" width="50px" height="50px"/>
+                </a>
             </div>
             <div className="d-flex justify-content-between w-75">
                 <h6>{param.data.author.username}</h6>
                 {
                     param.data.author.id===parseInt(userInfo.userId) &&
-                    (<FontAwesomeIcon onClick={()=>{setClicked(true)}} icon={faTrashCan} size={"lg"}/>)
+                    (<FontAwesomeIcon onClick={()=>{setClicked(true)}} className="pointer-svg"  icon={faTrashCan} size={"lg"}/>)
                 }
             </div>
             <Confirmation display={display} toggle={setDisplay} setResult={setResult}/>

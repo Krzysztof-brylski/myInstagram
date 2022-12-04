@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @viteReactRefresh
 @vite(['resources/js/user/my_posts_preview.jsx'])
+<script src="https://kit.fontawesome.com/7a1ae6883e.js" crossorigin="anonymous"></script>
 @section('content')
 @include('layouts/app_header')
 
@@ -12,18 +13,19 @@
         </div>
         <div class="col-xl-9 px-4">
             <div class="row">
-                <div class="col-xl-12 d-flex flex-row ">
-                    <h2>{{$user->name}}</h2>
-                    <button  class="mx-5 ">Edytuj Profil</button>
+                <div class="col-xl-6 d-flex flex-column ">
+                    <div><h2 class="m-0">{{$user->name}}</h2></div>
+                    <span class="my-3" style="font-size: medium;font-weight: 500;">posty: {{$posts_count}}</span>
                 </div>
-                <div class="col-xl-12 d-flex flex-row my-3">
-                    <span class="mx-5" style="font-size: medium;font-weight: 500;">posty: {{$posts_count}}</span>
-                    <span class="mx-5" style="font-size: medium;font-weight: 500;">obserwujących: {{$followers_count}} </span>
+                <div class="col-xl-6 d-flex flex-column ">
+                    <a href="#" style="text-decoration: none;color: black;">
+                        <span class="fa-solid fa-gear fa-2x " style="width:40px;"></span>
+                    </a>
+                    <span class="my-3" style="font-weight: 500;font-size: medium;"> obserwujący: {{$followers_count}}</span>
                 </div>
                 <div class="col-xl-12">
                     <p style="fontWeight:400;fontSize:medium">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut convallis ornare nibh eu tempus.
-                        Sed ut arcu sed odio molestie laoreet. Nunc ac malesuada neque. Nulla facilisi. Sed sed ornare massa.
+                        {{$user->Info->description}}
                     </p>
                 </div>
             </div>

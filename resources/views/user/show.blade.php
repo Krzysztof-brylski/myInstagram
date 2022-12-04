@@ -5,8 +5,10 @@
 @vite(['resources/js/user/user_follow_btn.jsx'])
 <script>
     const selectedUserId="{{$user->id}}";
-
+    const isUserFollowed="{{$followed}}";
+    const startFollowersCount="{{$followers_count}}"
 </script>
+
 @section('content')
     @include('layouts/app_header')
 
@@ -18,18 +20,16 @@
             </div>
             <div class="col-xl-9 px-4">
                 <div class="row">
-                    <div class="col-xl-12 d-flex flex-row ">
-                        <div><h2>{{$user->name}}</h2></div>
-                        <div id="User-follow-btn"></div>
+                    <div class="col-xl-6 d-flex flex-column ">
+                        <div><h2 class="m-0">{{$user->name}}</h2></div>
+                        <span class="my-3" style="font-size: medium;font-weight: 500;">posty: {{$posts_count}}</span>
                     </div>
-                    <div class="col-xl-12 d-flex flex-row my-3">
-                        <span class="mx-5" style="font-size: medium;font-weight: 500;">posty: {{$posts_count}}</span>
-                        <span class="mx-5" style="font-size: medium;font-weight: 500;">obserwujących: {{$followers_count}} </span>
+                    <div class="col-xl-6 d-flex flex-column my-3 justify-content-start" id="User-follow-btn">
+
                     </div>
                     <div class="col-xl-12">
                         <p style="fontWeight:400;fontSize:medium">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut convallis ornare nibh eu tempus.
-                            Sed ut arcu sed odio molestie laoreet. Nunc ac malesuada neque. Nulla facilisi. Sed sed ornare massa.
+                            {{$user->Info->description}}
                         </p>
                     </div>
                 </div>
