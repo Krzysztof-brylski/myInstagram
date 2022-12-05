@@ -18,8 +18,8 @@
                     <span class="my-3" style="font-size: medium;font-weight: 500;">posty: {{$posts_count}}</span>
                 </div>
                 <div class="col-xl-6 d-flex flex-column ">
-                    <a href="#" style="text-decoration: none;color: black;">
-                        <span class="fa-solid fa-gear fa-2x " style="width:40px;"></span>
+                    <a href="{{route('user_edit',Auth::user()->id)}}"style="text-decoration: none;color: black;width: fit-content;z-index: 2;">
+                        <i class="fa-solid fa-gear fa-2x " style="width:40px;"></i>
                     </a>
                     <span class="my-3" style="font-weight: 500;font-size: medium;"> obserwujący: {{$followers_count}}</span>
                 </div>

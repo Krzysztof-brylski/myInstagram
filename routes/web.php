@@ -30,7 +30,9 @@ Route::middleware('auth')->group(function (){
         Route::post('/user/follow/{User}',[UserController::class,'follow']);
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
         Route::get('/user/search', [App\Http\Controllers\SearchController::class, 'search_user'])->name('search_user');
-        Route::resource('User',UserController::class)->only('show');
+        Route::get('/user/edit/{User}', [UserController::class, 'edit'])->name('user_edit');
+        Route::post('/user/edit', [UserController::class, 'update'])->name('user_edit_save');
+        Route::resource('User',UserController::class)->only(['show']);
         Route::post('/post', [PostController::class,'store'])->name('add_post');
         Route::post('/post/{Post}', [PostController::class,'like'])->name('like_post');
         Route::get('/post/likes/{Post}', [PostController::class,'likeCount'])->name('likeCount_post');

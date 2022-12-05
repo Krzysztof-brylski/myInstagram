@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -16,15 +18,15 @@ class UserController extends Controller
             if(Auth::user()->id == $User->id){
                 return view('user/admin',
                     ['user'=>$User,
-                     'posts_count'=>$User->postCount(),
-                     'followers_count'=>$User->followers_count,
+                        'posts_count'=>$User->postCount(),
+                        'followers_count'=>$User->followers_count,
                     ]);
             }
             return view('user/show',
                 ['user'=>$User,
-                 'posts_count'=>$User->postCount(),
-                 'followers_count'=>$User->followers_count,
-                 'followed'=>Auth::user()->isUserFollowed($User->id),
+                    'posts_count'=>$User->postCount(),
+                    'followers_count'=>$User->followers_count,
+                    'followed'=>Auth::user()->isUserFollowed($User->id),
                 ]);
         }
     }
@@ -39,5 +41,29 @@ class UserController extends Controller
             return Response()->json(["status"=>"Followed","followers_count"=>$count],200);
         }
         return Response()->json("UserDontExist",404);
+    }
+
+    public function edit(User $User){
+        return view("user/edit",["user"=>$User]);
+    }
+    // todo password reset backend
+    // just user edit
+    // public/private profile --maybe
+    public function update(Request $request){
+        //dd($request->all());
+        $data=$request->all();
+        $user=Auth::user();
+        $user->name=$data["name"];
+        $user->username=$data["username"];
+        $user->email=$data["email"];
+
+        $request->has("public_status") ? $user->info->public_status=true : $user->info->public_status=false;
+        $user->info->description=$data["description"];
+        $user->info->birth_day=$data["birth_day"];
+
+        $user->info->save();
+        $user->save();
+
+        return Redirect(route("user_edit",$user->id));
     }
 }

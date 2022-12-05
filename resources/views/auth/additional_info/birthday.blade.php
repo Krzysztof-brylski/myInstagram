@@ -18,5 +18,11 @@
 
     </textarea>
 
+    <h5>Publiczny profil</h5>
+    <div class="form-check form-switch mx-2 my-0 ">
+        <input value="1" class="form-check-input" name="public_status"style="width: 50px;height: 25px;" type="checkbox" role="switch" id="flexSwitchCheckDefault" checked>
+    </div>
+    <p>Profil nie publiczny nie będzie się wyświetlał w wynikach wyszukiwania </p>
+
     <button class="form-submit btn-next-element" type="button"> Dalej </button>
 </div>

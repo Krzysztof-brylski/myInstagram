@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\Enum;
 
-class UserInfoRequest extends FormRequest
+class UserUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,7 +28,9 @@ class UserInfoRequest extends FormRequest
         return [
             'birth_day'=>"required|date|after:$after|before:$before",
             'description'=>'required|max:150',
-            'photo'=>'nullable|image',
+            'name'=>'required|max:30',
+            'username'=>'required|unique:users,username|max:30',
+            'email'=>'required|email|unique:users,email|max:40',
         ];
     }
 }

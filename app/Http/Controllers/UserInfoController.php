@@ -39,18 +39,25 @@ class UserInfoController extends Controller
     public function store(UserInfoRequest $request,User $User)
     {
         $data=$request->validated();
-        $info = new UserInfo($data);
+        $info = new UserInfo();
+
+        $info->birth_day = $data["birth_day"];
+        $request->has("public_status") ? $info->public_status=true : $info->public_status=false;
+        $info->description = $data["description"];
+
         Schema::create("user_follows_".$User->username, function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id")->constrained("users");
             $table->timestamps();
         });
+
         if($request->hasFile('photo')){
 
-            $info->photo=$request->file('photo')->store('user_photos');
+            $info->photo = $request->file('photo')->store('user_photos');
             $User->Info()->save($info);
             return redirect(route('home'));
         }
+
         $info->photo = "user_photos/default.png";
         $User->Info()->save($info);
         return redirect(route('home'));
