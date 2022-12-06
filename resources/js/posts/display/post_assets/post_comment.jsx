@@ -42,7 +42,7 @@ function Post_comment(param) {
                 refreshLikeCount();
             });
     };
-
+    console.log(param.data);
     return(
         <div className="d-flex flex-row position-relative my-1">
             <div className="d-flex flex-row justify-content-between w-100 align-items-center" style={{padding:"0 20px 0 0"}}>

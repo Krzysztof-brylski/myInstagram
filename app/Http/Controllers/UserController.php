@@ -46,16 +46,15 @@ class UserController extends Controller
     public function edit(User $User){
         return view("user/edit",["user"=>$User]);
     }
-    // todo password reset backend
-    // just user edit
-    // public/private profile --maybe
-    public function update(Request $request){
+
+    public function update(UserUpdateRequest $request){
         //dd($request->all());
-        $data=$request->all();
+        $data=$request->validated();
         $user=Auth::user();
-        $user->name=$data["name"];
-        $user->username=$data["username"];
-        $user->email=$data["email"];
+
+        $data["name"] != null && $user->name=$data["name"];
+        $data["username"] != null && $user->username=$data["username"];
+        $data["email"] != null && $user->email=$data["email"];
 
         $request->has("public_status") ? $user->info->public_status=true : $user->info->public_status=false;
         $user->info->description=$data["description"];

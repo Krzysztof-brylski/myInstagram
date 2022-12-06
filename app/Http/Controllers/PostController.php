@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 use App\Dto\PostPackDto;
+use App\Dto\user\userDto;
+use App\Dto\post\postDto;
+use App\Dto\post\postImagesDto;
+use App\ValueObjects\postsContainerVo;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
@@ -24,29 +28,17 @@ class PostController extends Controller
             return Response()->json("Error",400);
         }
         $posts=Post::query()->where('user_id','=',$User->id)->get()->all();
-        $response=array();
+        $postDtos=array();
         foreach ($posts as $post){
             $images=$post->PostImages;
             $author=$post->Author()->all()[0];
-            $images_src=array();
-            $author_data=array(
-                'id'=>$author->id,
-                'username'=>$author->username,
-                'image'=>$author->Info->photo,
-            );
-            foreach ($images->all() as $img){
-                array_push($images_src,$img->image_url);
-            }
-            $response[$post->id]=[
-                'post_id'=>$post->id,
-                'author'=>$author_data,
-                'content'=> $post->content,
-                'like_count'=> $post->like_count,
-                'liked'=>$post->isUserLiked(Auth::user()->id),
-                'images'=> $images_src,
-            ];
+            $imagesDto=new postImagesDto($images->all());
+            $userDto= new userDto($author);
+            $postDto = new postDto($userDto,$imagesDto,$post);
+            array_push($postDtos,$postDto);
         }
-        return Response()->json(array_reverse($response),200);
+        $postsContainer=new postsContainerVo($postDtos);
+        return Response()->json($postsContainer->getReverse(),200);
     }
 
     public function proposedPosts(Request $request){

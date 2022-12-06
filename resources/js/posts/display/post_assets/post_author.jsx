@@ -31,7 +31,6 @@ function Post_author(param) {
             setClicked(false);
         }
     },[clicked,result]);
-
     return(
         <div style={postAuthorContainer} className="py-2" >
             <div className="mx-2">

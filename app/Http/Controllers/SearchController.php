@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-
+use App\ValueObjects\searchUserVo;
+use App\Dto\user\userDto;
 class SearchController extends Controller
 {
     /**
@@ -20,19 +21,15 @@ class SearchController extends Controller
             $query=User::query();
             $result=$query->where('username','like',"$name%")
                 ->orWhere('name','like',"$name%")->limit(15)->get();
-            $json=array();
+            $usersArray=array();
             foreach ($result as $user){
                 if($user->info->public_status == false){
                     continue;
                 }
-                $json[$user->id]=[
-                    'id'=>$user->id,
-                    'name'=>$user->name,
-                    'username'=> $user->username,
-                    'img'=>$user->Info->photo
-                ];
+                array_push($usersArray,new userDto($user));
             }
-            return Response()->json($json);
+            $resultVo= new searchUserVo($usersArray);
+            return Response()->json($resultVo->get_data());
         }
 
         return Response()->json(null);

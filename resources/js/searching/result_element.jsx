@@ -7,7 +7,7 @@ const ResultElement = props=> {
           <a href={url} className="searching-result-anhor my-1 p-1">
               <div className='searching-result-container d-flex'>
                   <div className="mx-2">
-                      <img src={props.storage+'/'+props.data.img} className="searching-result-img" width="50px" height="50px"/>
+                      <img src={props.storage+'/'+props.data.image} className="searching-result-img" width="50px" height="50px"/>
                   </div>
                   <div className="searching-result-text">
                       <h6>{props.data.name}</h6>

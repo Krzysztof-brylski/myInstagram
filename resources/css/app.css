@@ -21,7 +21,7 @@ p,h2,h3,h4,h5,h6,h1,span{
     transition: transform ease-in-out 0.1s;
 }
 .cursor-pointer{
-    cursor: pointer;
+    cursor: pointer!important;
 }
 .description-input{
     resize: none;

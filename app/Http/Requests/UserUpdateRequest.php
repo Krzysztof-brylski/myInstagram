@@ -26,11 +26,11 @@ class UserUpdateRequest extends FormRequest
         $after=date('Y-m-d', strtotime('-120 year'));
         $before=date('Y-m-d', strtotime('-12 year'));
         return [
-            'birth_day'=>"required|date|after:$after|before:$before",
+            'birth_day'=>"date|after:$after|before:$before",
             'description'=>'required|max:150',
-            'name'=>'required|max:30',
-            'username'=>'required|unique:users,username|max:30',
-            'email'=>'required|email|unique:users,email|max:40',
+            'name'=>'nullable|max:30',
+            'username'=>'nullable|unique:users,username|max:30',
+            'email'=>'nullable|email|unique:users,email|max:40',
         ];
     }
 }

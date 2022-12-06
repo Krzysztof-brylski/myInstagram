@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Post_comments_likes;
 use App\Models\Post;
 use App\Models\Post_comments;
+use App\ValueObjects\commentsContainerVo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Dto\user\userDto;
+use App\Dto\comment\commentDto;
 class PostCommentsController extends Controller
 {
     public function comment(Post $Post,Request $request){
@@ -28,25 +30,14 @@ class PostCommentsController extends Controller
     public function getComments(Post $Post){
         if($Post->exists){
             $comments=$Post->PostComments()->get()->all();
-            $Rresponse=array();
+            $commentDtos=array();
             foreach ($comments  as $comment){
-                $author=$comment->Author()->all()[0];
-                array_push($Rresponse,array(
-                    "comment"=>array(
-                        "id"=>$comment->id,
-                        "content"=>$comment->content,
-                        "liked"=>$comment->isUserLiked(Auth::user()->id),
-                        "like_count"=>$comment->like_count,
-                    ),
-                    "author"=>array(
-                        "id"=>$author->id,
-                        "username"=>$author->username,
-                        "image"=>$author->Info->photo,
-                    )
-                ));
-
+                $authorDto= new userDto($comment->Author()->all()[0]);
+                $commentDto = new commentDto($comment);
+                array_push($commentDtos,[$authorDto,$commentDto]);
             }
-            return Response()->json($Rresponse,200);
+            $commentsVo = new commentsContainerVo($commentDtos);
+            return Response()->json($commentsVo->get(),200);
         }
         return Response()->json("PostDontExist",404);
     }

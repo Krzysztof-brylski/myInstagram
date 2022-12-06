@@ -8,6 +8,9 @@ import Add_comment from  './add_post_comment';
 import axios from "axios";
 import useAxios from "axios-hooks";
 import Loading_screen from "../../../helpers/loading";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faXmark} from '@fortawesome/free-solid-svg-icons';
+
 function Post_preview(param) {
     if(param.show === false){return null;}
 
@@ -15,19 +18,12 @@ function Post_preview(param) {
     const [{ data, loading, error }, refetch] = useAxios(posts.postCommentsGateWay+"/"+param.data.post_id);
     //if (loading) return null;
 
-
     return (
         <div className="modal-overlay" style={param.style}>
 
             <div className="modal-close-btn-container" style={{top:"0"}}>
                 <p onClick={param.onClose} className="modal-close-btn m-3">
-                    <svg aria-label="Zamknij" className="x1n2onr6 x1lliihq" color="#ffffff" fill="#ffffff" height="18"
-                         role="img" viewBox="0 0 24 24" width="18"><title>Zamknij</title>
-                        <polyline fill="none" points="20.643 3.357 12 12 3.353 20.647" stroke="currentColor"
-                                  stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline>
-                        <line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                              stroke-width="3" x1="20.649" x2="3.354" y1="20.649" y2="3.354"></line>
-                    </svg>
+                    <FontAwesomeIcon icon={faXmark} size={"3x"} style={{color:"white",cursor:"pointer"}}/>
                 </p>
             </div>
             <div className="d-flex justify-content-center align-items-center h-100">

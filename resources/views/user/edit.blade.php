@@ -1,13 +1,17 @@
 @extends('layouts.app')
 @section('content')
+
 @include('layouts/app_header')
+@viteReactRefresh
+@vite(['resources/js/user/edit/edit_profile_photo.jsx'])
+@vite(['resources/js/user/edit/edit_password.jsx'])
 <div class="container my-5 w-100 h-100 d-flex justify-content-center">
     <div class="bg-white  w-50 h-75 p-4">
         <div class="d-flex align-items-center ">
             <img class="profile-img" src="{{asset("storage/".$user->info->photo)}}">
             <div>
                 <h3 style="font-weight: 400;" class="mx-2 my-0">{{$user->name}}</h3>
-                <h6 style="font-weight: bold; font-size: small"  class="mx-2 my-0">Zmien zdjęcie profiliowe</h6>
+                <div id="Edit-profile-photo"></div>
             </div>
         </div>
         <div class="d-flex  justify-content-center my-3">
@@ -16,7 +20,7 @@
                 <div class="d-flex my-3  flex-row w-100">
                     <span class="h6 fw-bold m-0 w-25">Imie i nazwisko</span>
                     <div class="d-flex flex-column mx-2">
-                        <input name="name" class="m-0 w-100 form-input" style="border-radius: 5px;" type="text" value="{{$user->name}}">
+                        <input name="name" class="m-0 w-100 form-input" style="border-radius: 5px;" type="text" placeholder="{{$user->name}}">
                         <p class="my-1" style="font-size: small; color: #838383" >opis pola 1231231231231endiqwdjiqw dqwijdqw dqwdq weqw</p>
                     </div>
                 </div>
@@ -24,7 +28,7 @@
                 <div class="d-flex my-3 flex-row  w-100">
                     <span class="h6 fw-bold m-0 w-25 ">Nazwa urzytkownika</span>
                     <div class="d-flex flex-column mx-2">
-                        <input name="username" class="m-0 w-100 form-input" style="border-radius: 5px;" type="text" value="{{$user->username}}">
+                        <input name="username" class="m-0 w-100 form-input" style="border-radius: 5px;" type="text" placeholder="{{$user->username}}">
                         <p class="my-1" style="font-size: small; color: #838383" >opis pola 1231231231231endiqwdjiqw dqwijdqw dqwdq weqw</p>
                     </div>
                 </div>
@@ -51,15 +55,15 @@
 
                 <div class="d-flex my-3 flex-row  w-100">
                     <span class="h6 fw-bold m-0 w-25 ">Zmień hasło</span>
-                    <div class="d-flex flex-column mx-2">
-                        <button>Do zmiany hasła</button>
+                    <div class="d-flex flex-column mx-2" id="Edit_password">
+
                     </div>
                 </div>
 
                 <div class="d-flex my-3 flex-row  w-100">
                     <span class="h6 fw-bold m-0 w-25 ">Adres e-mail</span>
                     <div class="d-flex flex-column mx-2">
-                        <input name="email" class="m-0 w-100 form-input" style="border-radius: 5px;" type="email" value="{{$user->email}}">
+                        <input name="email" class="m-0 w-100 form-input" style="border-radius: 5px;" type="email" placeholder="{{$user->email}}">
                         <p class="my-1" style="font-size: small; color: #838383" >opis pola 1231231231231endiqwdjiqw dqwijdqw dqwdq weqw</p>
                     </div>
                 </div>
