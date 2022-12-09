@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Dto\user\userDto;
 use App\Dto\comment\commentDto;
+use App\Dto\comment\commentContentDto;
 class PostCommentsController extends Controller
 {
     public function comment(Post $Post,Request $request){
@@ -33,8 +34,8 @@ class PostCommentsController extends Controller
             $commentDtos=array();
             foreach ($comments  as $comment){
                 $authorDto= new userDto($comment->Author()->all()[0]);
-                $commentDto = new commentDto($comment);
-                array_push($commentDtos,[$authorDto,$commentDto]);
+                $commentContainerDto = new commentContentDto($comment);
+                array_push($commentDtos,new commentDto($authorDto,$commentContainerDto));
             }
             $commentsVo = new commentsContainerVo($commentDtos);
             return Response()->json($commentsVo->get(),200);

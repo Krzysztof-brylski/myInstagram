@@ -4,7 +4,11 @@
 @include('layouts/app_header')
 @viteReactRefresh
 @vite(['resources/js/user/edit/edit_profile_photo.jsx'])
-@vite(['resources/js/user/edit/edit_password.jsx'])
+<script>
+
+    const userImageUpdateGateWay="{{route("user_edit_image")}}";
+
+</script>
 <div class="container my-5 w-100 h-100 d-flex justify-content-center">
     <div class="bg-white  w-50 h-75 p-4">
         <div class="d-flex align-items-center ">
@@ -51,13 +55,6 @@
                 <div class="my-4 text-center">
                     <h3 class="my-1" style="font-weight: 500;  color: #838383">Infoamcje prytwatne</h3>
                     <p class="my-0" style="font-size: small; color: #838383" >Podane informacje prywatne nie będą częścią twojego profilu</p>
-                </div>
-
-                <div class="d-flex my-3 flex-row  w-100">
-                    <span class="h6 fw-bold m-0 w-25 ">Zmień hasło</span>
-                    <div class="d-flex flex-column mx-2" id="Edit_password">
-
-                    </div>
                 </div>
 
                 <div class="d-flex my-3 flex-row  w-100">

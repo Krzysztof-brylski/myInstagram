@@ -55,7 +55,6 @@ class PostController extends Controller
     }
 
     public function store(Request $request){
-
         if($request->hasFile('files')){
 
             $post = new Post();

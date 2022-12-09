@@ -10,7 +10,8 @@ function Success_modal(param) {
       borderRadius:"15px"
     };
     const ModalStyle={
-        inset:`${window.scrollY}px 0 0 0 `
+        inset:`${window.scrollY}px 0 0 0 `,
+        zIndex:"9999999999",
     };
     const headersStyle={
         fontWeight:"400"

@@ -8,6 +8,7 @@ use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -65,4 +66,32 @@ class UserController extends Controller
 
         return Redirect(route("user_edit",$user->id));
     }
+    public function updateImage(Request $request){
+        $User=Auth::user();
+        if($request->hasFile("newImage")){
+
+            if($User->info->photo != "user_photos/default.png"){
+                if(Storage::exists($User->info->photo)){
+                    Storage::delete($User->info->photo);
+                }
+            }
+            $User->info->photo=$request->file('newImage')->store('user_photos');
+            $User->info->save();
+            return Response()->json("okii",200);
+        }
+        if($request->has("newImage")){
+            if($request->newImage === "false"){
+                if($User->info->photo != "user_photos/default.png"){
+                    if(Storage::exists($User->info->photo)){
+                        Storage::delete($User->info->photo);
+                    }
+                }
+                $User->info->photo="user_photos/default.png";
+                $User->info->save();
+                return Response()->json("okii",200);
+            }
+        }
+        return Response()->json("error",500);
+    }
+
 }

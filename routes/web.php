@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function (){
         Route::get('/user/search', [App\Http\Controllers\SearchController::class, 'search_user'])->name('search_user');
         Route::get('/user/edit/{User}', [UserController::class, 'edit'])->name('user_edit');
         Route::post('/user/edit', [UserController::class, 'update'])->name('user_edit_save');
+        Route::post('/user/image/edit', [UserController::class, 'updateImage'])->name('user_edit_image');
         Route::resource('User',UserController::class)->only(['show']);
         Route::post('/post', [PostController::class,'store'])->name('add_post');
         Route::post('/post/{Post}', [PostController::class,'like'])->name('like_post');

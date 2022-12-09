@@ -55,7 +55,7 @@ function Post_comment(param) {
                     <div><span style={{fontSize:"12px",fontWeight:"600",color:"rgb(217, 217, 217)"}}>Polubień: {counter}</span></div>
 
                 </div>
-                <FontAwesomeIcon onClick={likeComment} style={{...commentLikeBtn,...likeBtn}} icon={faHeart}/>
+                <FontAwesomeIcon className="pointer-svg" onClick={likeComment} style={{...commentLikeBtn,...likeBtn}} icon={faHeart}/>
 
             </div>
 

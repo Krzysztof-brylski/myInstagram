@@ -1,17 +1,12 @@
 <?php
 namespace App\ValueObjects;
-
+use App\Dto\comment\commentDto;
 class commentsContainerVo{
 
     public $commentsContainer=array();
 
     public function __construct($array){
-        foreach ($array as $commentsDto){
-            array_push($this->commentsContainer,[
-                "author"=>$commentsDto[0],
-                "comment"=>$commentsDto[1],
-            ]);
-        }
+        $this->commentsContainer=$array;
     }
 
     public function get(){
