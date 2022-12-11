@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserInfoRequest;
 use App\Models\User;
 use App\Models\UserInfo;
+use http\Env\Response;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Http\Request;
@@ -38,6 +39,7 @@ class UserInfoController extends Controller
      */
     public function store(UserInfoRequest $request,User $User)
     {
+
         $data=$request->validated();
         $info = new UserInfo();
 
@@ -55,12 +57,12 @@ class UserInfoController extends Controller
 
             $info->photo = $request->file('photo')->store('user_photos');
             $User->Info()->save($info);
-            return redirect(route('home'));
+            return Response()->json("ok",200);
         }
 
         $info->photo = "user_photos/default.png";
         $User->Info()->save($info);
-        return redirect(route('home'));
+        return Response()->json("ok",200);
     }
 
 

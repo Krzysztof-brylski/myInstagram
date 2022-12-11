@@ -1,11 +1,8 @@
-import React, {useState, useEffect, useRef} from 'react';
-import ReactDOM from 'react-dom';
+import React, {useState, useRef} from 'react';
 import 'react-image-crop/dist/ReactCrop.css'
 import ReactCrop from 'react-image-crop'
 import axios from "axios";
-import Success_modal from "../../helpers/success";
-import Error_modal from "../../helpers/error";
-function Image_preview({image,setDisplaySuccess,setDisplayError,setDisplayModal}) {
+function Image_preview({image,setFile,setDisplaySuccess=null,setDisplayError=null,setDisplayModal=null}) {
     const ModalStyle={
         inset:`${window.scrollY}px 0 0 0 `,
         zIndex:"99999",
@@ -62,11 +59,11 @@ function Image_preview({image,setDisplaySuccess,setDisplayError,setDisplayModal}
         axios.post(userImageUpdateGateWay,formData).then((response)=>{
             console.log(response);
             if(response.status === 200){
-                setDisplayModal(false);
+                setDisplaySuccess !== null ?setDisplayModal(false):null;
                 setDisplaySuccess(true);
             }
             else{
-                setDisplayModal(false);
+                setDisplayModal !== null ?setDisplayModal(false):null;
                 setDisplayError(true);
             }
         });

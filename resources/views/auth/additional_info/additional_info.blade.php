@@ -1,13 +1,12 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="container">
         <div style="display:flex;flex-direction:column;justify-content: center; align-items: center">
 
-            <div class="card w-25 mx-1" >
-                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+            <div class="w-25 mx-1" >
+                <div class="card-body d-flex flex-column justify-content-center align-items-center ">
 
-                    <form method="POST" id="additional_info" action="{{route('UserInfo.store',$user->id)}}" enctype="multipart/form-data">
+                    <form name="additional_info" id="additional_info">
                         @csrf
                         @include('auth.additional_info.birthday')
                         @include('auth.additional_info.photo')

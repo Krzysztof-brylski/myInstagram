@@ -61,7 +61,7 @@ function Edit_profile_photo() {
     };
     return(
         <>
-            <h6 style={headerStyle} onClick={toggleModal} className="mx-2 my-0">Zmien zdjęcie profiliowe</h6>
+            <h6 style={headerStyle} onClick={toggleModal} className="mx-2 my-0 cursor-pointer">Zmien zdjęcie profiliowe</h6>
             {displayModal &&
             <div className="modal-overlay" style={ModalStyle} onClick={(event => {event.stopPropagation()})}>
                 <div className="d-flex justify-content-center align-items-center h-100 "  >

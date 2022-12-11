@@ -9,7 +9,7 @@
         userId:"{{Auth::user()->id}}",
         userName:"{{Auth::user()->name}}",
         userPhoto:"{{Auth::user()->Info->photo}}",
-        storage:'{{asset('storage/')}}',
+
     };
     const posts={
         postsGateWay:'{{url('post/')}}',
