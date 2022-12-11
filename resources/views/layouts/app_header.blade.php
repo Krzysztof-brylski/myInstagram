@@ -3,7 +3,6 @@
     const user_show_url='{{url('User/')}}';
     const storage='{{asset('storage/')}}';
     const followGateWay='{{url("user/follow/")}}';
-
     const userInfo={
         csrf:document.getElementById('csrf-token').content,
         userId:"{{Auth::user()->id}}",
@@ -17,6 +16,7 @@
         postsProposedGateWay:'{{url('proposing/')}}',
         postsLikeGateWay:'{{url('post/')}}',
         postsLikeCounterGateWay:'{{url('post/likes/')}}',
+        commentPostGateWay:'{{url('/addPostComment/')}}',
         postCommentsGateWay:'{{url('post/comments/')}}',
         postCommentsLikeGateWay:'{{url('post/comments/likes/')}}',
         postCountGateWay:"{{url("/post/count/")}}",

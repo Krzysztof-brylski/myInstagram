@@ -9,6 +9,7 @@
     const userImageUpdateGateWay="{{route("user_edit_image")}}";
 
 </script>
+
 <div class="container my-5 w-100 h-100 d-flex justify-content-center">
     <div class="bg-white  w-50 h-75 p-4">
         <div class="d-flex align-items-center ">
@@ -25,6 +26,9 @@
                     <span class="h6 fw-bold m-0 w-25">Imie i nazwisko</span>
                     <div class="d-flex flex-column mx-2">
                         <input name="name" class="m-0 w-100 form-input" style="border-radius: 5px;" type="text" placeholder="{{$user->name}}">
+                        @error('name')
+                        <strong class="error_message">{{$message}}</strong>
+                        @enderror
                         <p class="my-1" style="font-size: small; color: #838383" >opis pola 1231231231231endiqwdjiqw dqwijdqw dqwdq weqw</p>
                     </div>
                 </div>
@@ -33,6 +37,9 @@
                     <span class="h6 fw-bold m-0 w-25 ">Nazwa urzytkownika</span>
                     <div class="d-flex flex-column mx-2">
                         <input name="username" class="m-0 w-100 form-input" style="border-radius: 5px;" type="text" placeholder="{{$user->username}}">
+                        @error('username')
+                            <strong class="error_message">{{$message}}</strong>
+                        @enderror
                         <p class="my-1" style="font-size: small; color: #838383" >opis pola 1231231231231endiqwdjiqw dqwijdqw dqwdq weqw</p>
                     </div>
                 </div>
@@ -41,6 +48,9 @@
                     <span class="h6 fw-bold m-0 w-25 ">Opis proflu</span>
                     <div class="d-flex flex-column mx-2">
                         <textarea name="description" form="edit_user_form" class="m-0 w-100 form-input description-input" style="border-radius: 5px; height: 150px;" maxlength="150"  >{{$user->info->description}}</textarea>
+                        @error('description')
+                        <strong class="error_message">{{$message}}</strong>
+                        @enderror
                         <p class="my-1" style="font-size: small; color: #838383" >opis pola 1231231231231endiqwdjiqw dqwijdqw dqwdq weqw</p>
                     </div>
                 </div>
@@ -61,6 +71,9 @@
                     <span class="h6 fw-bold m-0 w-25 ">Adres e-mail</span>
                     <div class="d-flex flex-column mx-2">
                         <input name="email" class="m-0 w-100 form-input" style="border-radius: 5px;" type="email" placeholder="{{$user->email}}">
+                        @error('email')
+                        <strong class="error_message">{{$message}}</strong>
+                        @enderror
                         <p class="my-1" style="font-size: small; color: #838383" >opis pola 1231231231231endiqwdjiqw dqwijdqw dqwdq weqw</p>
                     </div>
                 </div>
@@ -68,6 +81,9 @@
                     <span class="h6 fw-bold m-0 w-25 ">Data urodzin</span>
                     <div class="d-flex flex-column mx-2">
                         <input name="birth_day" class="m-0 w-100 form-input" style="border-radius: 5px;" type="date" value="{{$user->info->birth_day}}">
+                        @error('birth_day')
+                        <strong class="error_message">{{$message}}</strong>
+                        @enderror
                         <p class="my-1" style="font-size: small; color: #838383" >opis pola 1231231231231endiqwdjiqw dqwijdqw dqwdq weqw</p>
                     </div>
                 </div>

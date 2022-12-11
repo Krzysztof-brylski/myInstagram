@@ -31,7 +31,8 @@ function Add_comment(props) {
             const formData = new FormData();
             formData.append('_token', userInfo.csrf);
             formData.append('comment', comment);
-            axios.post(posts.postCommentsGateWay + "/" + props.post_id, formData)
+            formData.append('post_id',props.post_id);
+            axios.post(posts.commentPostGateWay+"/", formData)
                 .then(() => {
 
                 });

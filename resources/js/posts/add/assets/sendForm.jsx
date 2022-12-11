@@ -1,13 +1,14 @@
 import React,{useState} from 'react';
 import Error_modal from "../../../helpers/error";
 import Success_modal from "../../../helpers/success";
-
+import axios from "axios";
 
 function SendForm(props) {
 
     if(!props.show) return null;
     const[message,setMessage]=useState('');
     const[displayError,setDisplayError]=useState(false);
+    const[errorMessage,setErrorMessage]=useState(null);
     const[displaySuccess,setDisplaySuccess]=useState(false);
 
 
@@ -29,23 +30,25 @@ function SendForm(props) {
             formData.append('files[]',props.files[i]);
         }
         formData.append('content',message);
-         fetch('http://127.0.0.1:8000/post/',{
-             method: 'POST',
-             body: formData
-        }).then(function(res){
-            if(res.status === 201){
-                SuccessModalToggle();
-            }else{
+        axios.post(posts.postsGateWay,formData)
+            .then(function(res){
+                console.log(res);
+                if(res.status === 201){
+                    SuccessModalToggle();
+                }
+            })
+            .catch((error)=>{
+                setErrorMessage(Object.values(error.response.data)[0][0]);
                 ErrorModalToggle();
-            }
-        });
+            })
+
     };
 
     return(
         <div className="mx-3">
             <div className='searching-result-container d-flex my-2'>
                 <div className="mx-2">
-                    <img src={userInfo.storage+'/'+userInfo.userPhoto} className="searching-result-img" width="50px" height="50px"/>
+                    <img src={storage+'/'+userInfo.userPhoto} className="searching-result-img" width="50px" height="50px"/>
                 </div>
                 <div className="d-flex align-items-center">
                     <h5>{userInfo.userName}</h5>
@@ -57,7 +60,7 @@ function SendForm(props) {
                 </textarea>
                 <button className="form-submit" type='button' onClick={submit}>Udostępnij</button>
             </form>
-            <Error_modal display={displayError} toggle={ErrorModalToggle} killCallback={null}/>
+            <Error_modal display={displayError} toggle={ErrorModalToggle} errorMessage={errorMessage} killCallback={null}/>
             <Success_modal display={displaySuccess} toggle={SuccessModalToggle}  killCallback={props.killModal}/>
 
         </div>

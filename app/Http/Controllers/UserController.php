@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserUpdateRequest;
+use App\Http\Requests\user\UserUpdateImageRequest;
+use App\Http\Requests\user\UserUpdateRequest;
+use App\Http\Requests\UserDeleteImageRequest;
 use App\Models\User;
 use http\Env\Response;
 use Illuminate\Http\Request;
@@ -66,32 +68,29 @@ class UserController extends Controller
 
         return Redirect(route("user_edit",$user->id));
     }
-    public function updateImage(Request $request){
+    public function updateImage(UserUpdateImageRequest $request){
+        $request->validated();
         $User=Auth::user();
-        if($request->hasFile("newImage")){
+        if($User->info->photo != "user_photos/default.png"){
+            if(Storage::exists($User->info->photo)){
+                Storage::delete($User->info->photo);
+            }
+        }
+        $User->info->photo=$request->file('newImage')->store('user_photos');
+        $User->info->save();
+        return Response()->json("ok",200);
+    }
 
-            if($User->info->photo != "user_photos/default.png"){
-                if(Storage::exists($User->info->photo)){
-                    Storage::delete($User->info->photo);
-                }
-            }
-            $User->info->photo=$request->file('newImage')->store('user_photos');
-            $User->info->save();
-            return Response()->json("okii",200);
-        }
-        if($request->has("newImage")){
-            if($request->newImage === "false"){
-                if($User->info->photo != "user_photos/default.png"){
-                    if(Storage::exists($User->info->photo)){
-                        Storage::delete($User->info->photo);
-                    }
-                }
-                $User->info->photo="user_photos/default.png";
-                $User->info->save();
-                return Response()->json("okii",200);
+    public function deleteImage(){
+        $User=Auth::user();
+        if($User->info->photo != "user_photos/default.png"){
+            if(Storage::exists($User->info->photo)){
+                Storage::delete($User->info->photo);
             }
         }
-        return Response()->json("error",500);
+        $User->info->photo="user_photos/default.png";
+        $User->info->save();
+        return Response()->json("ok",200);
     }
 
 }

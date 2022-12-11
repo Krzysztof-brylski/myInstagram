@@ -9,6 +9,9 @@
         max="{{date('Y-m-d', strtotime('-12 year'))}}"
         required
     >
+    @error('birth_day')
+    <strong class="error_message">{{$message}}</strong>
+    @enderror
     <p>Musisz podać swoją datę urodzenia</p>
 
     <p>Podaj własną datę urodzenia, nawet jeśli jest to konto firmy, zwierzaka lub inne</p>
@@ -17,7 +20,9 @@
     <textarea form="additional_info" class="w-100 description-input" placeholder="Opis twojego profilu" name="description" maxlength="500" required>
 
     </textarea>
-
+    @error('description')
+    <strong class="error_message">{{$message}}</strong>
+    @enderror
     <h5>Publiczny profil</h5>
     <div class="form-check form-switch mx-2 my-0 ">
         <input value="1" class="form-check-input" name="public_status"style="width: 50px;height: 25px;" type="checkbox" role="switch" id="flexSwitchCheckDefault" checked>

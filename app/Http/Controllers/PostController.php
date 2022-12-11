@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Requests\post\PostCreateRequest;
+use App\Http\Requests\post\PostDeleteRequest;
 use App\Models\Post;
 use App\Models\Post_images;
 use App\Models\Post_likes;
@@ -54,25 +56,22 @@ class PostController extends Controller
         return Response()->json("Error",400);
     }
 
-    public function store(Request $request){
-        if($request->hasFile('files')){
+    public function store(PostCreateRequest $request){
 
-            $post = new Post();
-            $post->like_count=0;
-            $post->content=$request->get('content');
-            $post->user_id=Auth::user()->id;
-            $post->save();
-            foreach ($request->file('files') as $file){
-                $post_image= new Post_images();
-                $post_image->post_id=$post->id;
-                $post_image->image_url=$file->store('post_photos');
+        $data=$request->validated();
+        $post = new Post();
+        $post->like_count=0;
+        $post->content=$data["content"];
+        $post->user_id=Auth::user()->id;
+        $post->save();
+        foreach ($data["files"] as $file){
+            $post_image= new Post_images();
+            $post_image->post_id=$post->id;
+            $post_image->image_url=$file->store('post_photos');
 
-                $post->PostImages()->save($post_image);
-            }
-            return Response()->json("Post_Created",201);
+            $post->PostImages()->save($post_image);
         }
-        return Response()->json("Error",400);
-
+        return Response()->json("Post_Created",201);
     }
 
     public function postCount(User $User){
@@ -111,33 +110,30 @@ class PostController extends Controller
 
 
 
-    public function delete(Request $request){
-        if(!$request->has("user_id") and !$request->has("post_id")){
-            return Response()->json("Error",400);
-        }
-        $userId=$request->user_id;
-        $postId=$request->post_id;
+    public function delete(PostDeleteRequest $request){
+
+
+        $data=$request->validated();
+        $request->authorize();
+        $userId=$data["user_id"];
+        $postId=$data["post_id"];
+
         $post=Post::find($postId);
-
-        if($userId != Auth::user()->id or $userId != $post->Author()->id){
-            return  Response()->json("error",403);
-        }
-
         $images=$post->PostImages()->get();
-        foreach ($images as $image){
-            if(Storage::exists($image->image_url)){
+       foreach ($images as $image){
+           if(Storage::exists($image->image_url)){
                 Storage::delete($image->image_url);
-            }
-            $image->delete();
-        }
-        $comments=$post->PostComments()->get();
-        foreach ($comments as $comment){
-            $comment->CommentLikes()->delete();
-            $comment->delete();
-        }
-        $post->PostLikes()->delete();
-        $post->delete();
-        return Response()->json("ok",200);
+           }
+           $image->delete();
+       }
+       $comments=$post->PostComments()->get();
+       foreach ($comments as $comment){
+           $comment->CommentLikes()->delete();
+           $comment->delete();
+       }
+       $post->PostLikes()->delete();
+       $post->delete();
+       return Response()->json("ok",200);
     }
 
 

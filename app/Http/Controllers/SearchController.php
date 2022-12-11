@@ -15,7 +15,7 @@ class SearchController extends Controller
      */
     public function search_user(Request $request){
 
-        $request->query('username') != null ? $name=$request->query('username'): $name=null;
+        $request->username != null ? $name=$request->username: $name=null;
 
         if($name !=null){
             $query=User::query();

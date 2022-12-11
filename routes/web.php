@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function (){
         Route::get('/proposing', [PostController::class,'proposedPosts']);
         Route::get('/post/count/{User}', [PostController::class,'postCount']);
         Route::get('/post/comments/{Post}', [PostCommentsControllerAlias::class,'getComments']);
-        Route::post('/post/comments/{Post}', [PostCommentsControllerAlias::class,'comment']);
+        Route::post('/addPostComment/', [PostCommentsControllerAlias::class,'comment']);
         Route::get('/post/comments/likes/{Post_comments}', [PostCommentsControllerAlias::class,'likeCount']);
         Route::post('/post/comments/likes/{Post_comments}', [PostCommentsControllerAlias::class,'likeComment']);
     });

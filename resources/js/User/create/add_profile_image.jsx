@@ -4,11 +4,15 @@ import 'react-image-crop/dist/ReactCrop.css'
 import ReactCrop from 'react-image-crop'
 
 import axios from "axios";
+import Error_modal from "../../helpers/error";
 
 function Add_profile_image() {
     const[image,setImage]=useState(null);
     const[selectedImage,setSelectedImage]=useState(null);
     const[formData,setFormData]=useState(null);
+    const[displayError,setDisplayError]=useState(false);
+    const[errorMessage,setErrorMessage]=useState(null);
+
     const [crop, setCrop] = useState({
         unit: 'px', // Can be 'px' or '%'
         width:100,
@@ -72,15 +76,22 @@ function Add_profile_image() {
     };
     const sendForm=()=>{
         if(formData === null){return null};
-        axios.post(userInfoGateWay,formData).then((res)=>{
+        axios.post(userInfoGateWay,formData)
+        .then((res)=>{
             if(res.status===200){
                 window.location.href = "/home/";
             }
+        }).catch((error)=>{
+            setErrorMessage(Object.values(error.response.data)[0][0]);
+            ErrorModalToggle();
         });
     };
     const ModalStyle={
         inset:`${window.scrollY}px 0 0 0 `,
         zIndex:"99999",
+    };
+    const ErrorModalToggle=()=>{
+        setDisplayError(!displayError);
     };
 
     return(
@@ -118,7 +129,9 @@ function Add_profile_image() {
                     <canvas hidden ref={canvas}></canvas>
                     </div>
                 </div>
+                <Error_modal display={displayError} toggle={ErrorModalToggle} errorMessage={errorMessage} killCallback={null}/>
             </div>
+
         }
 
         </div>

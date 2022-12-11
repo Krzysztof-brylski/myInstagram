@@ -21,14 +21,24 @@
                             </div>
                             <hr class="line">
                     </div>
-
                     <form method="POST" action="{{route('register')}}" class="mx-4 mb-5">
                         @csrf
                         <input id="email" type="email" class="form-input @error('name') is-invalid @enderror" name="email" placeholder="{{__('login_and_register/register.input.email')}}" required  autofocus>
+                        @error('email')
+                        <strong class="error_message">{{$message}}</strong>
+                        @enderror
                         <input id="name" type="text" class="form-input @error('email') is-invalid @enderror" name="name" placeholder="{{__('login_and_register/register.input.name_surname')}}"  required  autofocus>
+                        @error('name')
+                        <strong class="error_message">{{$message}}</strong>
+                        @enderror
                         <input id="username" type="text" class="form-input @error('username') is-invalid @enderror" name="username"  placeholder="{{__('login_and_register/register.input.username')}}" required autofocus>
+                        @error('username')
+                        <strong class="error_message">{{$message}}</strong>
+                        @enderror
                         <input id="password" type="password" class="form-input @error('password') is-invalid @enderror" name="password" placeholder="{{__('login_and_register/register.input.password')}}" required autofocus>
-
+                        @error('password')
+                        <strong class="error_message">{{$message}}</strong>
+                        @enderror
                         <p class="text-center" style="color:#8e8e8e;">
                             {{__('login_and_register/register.note')}}
                         </p>

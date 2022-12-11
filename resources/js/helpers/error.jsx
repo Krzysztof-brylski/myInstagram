@@ -17,6 +17,12 @@ function Error_modal(param) {
     const headersStyle={
         fontWeight:"400"
     };
+    const errorMessageStyle={
+        color:"#d9534f",
+        textAlign:"center",
+        fontWeight:"600",
+        wordBreak:"wordBreak",
+    };
 
     const close=()=>{
        param.toggle();
@@ -31,7 +37,6 @@ function Error_modal(param) {
 
         return () => clearTimeout(timeout);
     },[]);
-
     return(
         <div className="modal-overlay" style={ModalStyle}>
             <div className="d-flex justify-content-center align-items-center h-100">
@@ -39,6 +44,7 @@ function Error_modal(param) {
                     <FontAwesomeIcon icon={faBomb} size={"6x"}/>
                     <h2 style={headersStyle}  className="my-2">Upss</h2>
                     <h3 style={headersStyle} >Coś poszło nie tak :/</h3>
+                    { param.errorMessage !== null && <p className="my-1 px-3" style={errorMessageStyle}> {param.errorMessage} </p>}
                     <button onClick={close} className="my-2 w-50 form-submit">Rozumiem</button>
                 </div>
             </div>
