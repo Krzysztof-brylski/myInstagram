@@ -4,7 +4,7 @@ import axios from "axios";
 
 
 function Post_comments({data}) {
-    if(data.length == 0){return null;}
+    
     return(
         <div className="d-flex flex-column " style={{height:"320px",maxHeight:"320px",overflowY:"scroll"}}>
             {

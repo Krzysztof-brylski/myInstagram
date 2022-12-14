@@ -1,15 +1,19 @@
 import React,{useState} from 'react';
 import SendForm from './sendForm';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faTrashCan, faXmark} from "@fortawesome/free-solid-svg-icons";
+
 function Preview(props) {
 
     if(!props.show) return null;
     const[currentSlide,setCurrentSlide]=useState(0);
-
+    const[deletedSlides,setDeletedSlides]=useState([]);
     var slides=[];
 
-    props.files.map((e)=>{
-        slides.push(<div className="ImgPreview"  style={{backgroundImage:`url(${e.preview})`}} />);
-
+    props.files.map((e, key)=>{
+        if(!(key in deletedSlides)){
+            slides.push(<div className="ImgPreview"  style={{backgroundImage:`url(${e.preview})`}} />);
+        }
     });
     const sliderControl={
         cursor:"pointer",
@@ -23,6 +27,13 @@ function Preview(props) {
         left:"85%",
         top:"5%",
         fontWeight:"bold",
+    };
+    const dellImageStyle={
+        position:"absolute",
+        cursor:"pointer",
+        color:"light-blue",
+        right:"90%",
+        top:"5%",
     };
     let style={
         height:"100%",
@@ -52,6 +63,12 @@ function Preview(props) {
         })
     };
 
+    const dellImage=()=>{
+        setDeletedSlides((prev)=>[...prev,currentSlide]);
+        if(slides.length === 1){
+            props.killModal();
+        }
+    };
     return(
         <div className="d-flex flex-row" style={{height:"93%"}}>
           <div className="d-flex flex-row align-items-stretch overflow-hidden position-relative" style={style}>
@@ -60,7 +77,8 @@ function Preview(props) {
                   <span className="mx-3" onClick={nextSlide} style={sliderControl}>❱</span>
               </div>
 
-              <span style={sendBtn} className="m-1" onClick={toForm}>Opublikuj</span>
+              <span style={sendBtn} className="m-1 cursor-pointer" onClick={toForm}>Opublikuj</span>
+              <FontAwesomeIcon style={dellImageStyle} onClick={dellImage} size={"lg"} icon={faTrashCan} />
               {
                   slides[currentSlide]
               }

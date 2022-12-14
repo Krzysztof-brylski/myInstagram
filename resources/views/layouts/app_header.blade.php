@@ -1,5 +1,5 @@
 <script>
-    const request_url='{{route('search_user')}}';
+    const search_url='{{route('search_user')}}';
     const user_show_url='{{url('User/')}}';
     const storage='{{asset('storage/')}}';
     const followGateWay='{{url("user/follow/")}}';

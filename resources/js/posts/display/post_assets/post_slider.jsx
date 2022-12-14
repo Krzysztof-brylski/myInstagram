@@ -4,12 +4,26 @@ function Post_slider(param) {
 
     const [currentSlide,setCurrentSlide]=useState(0);
     const [displayControl,setDisplayControl]=useState(true);
-    const postImage={
-        padding:"1px",
-        width:"inherit",
-        height:"inherit",
+    if(param.preview){
+        var postImage={
+            padding:"0",
+            width:"inherit",
+            height:"inherit",
+            border:"solid 0 transparent",
+            borderRadius:" 15px 0 0 15px"
+        };
 
-    };
+    }else{
+        var postImage={
+            padding:"0",
+            width:"inherit",
+            height:"inherit",
+            border:"solid 0 transparent",
+        };
+    }
+
+
+
     const sliderControl={
         cursor:"pointer",
         border:"transparent 1px solid",

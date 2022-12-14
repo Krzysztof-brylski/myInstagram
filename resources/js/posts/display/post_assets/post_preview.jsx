@@ -30,8 +30,8 @@ function Post_preview(param) {
                 {loading == true ?  <Loading_screen color="white" size="100px"/> : (
                 <div className="content" style={{height:"550px"}} onClick={(event => {event.stopPropagation()})}>
                     <div className="row" >
-                        <div className="col-xl-7" style={{width:"550px"}}>
-                            <Post_slider storage={param.storage} data={param.data}/>
+                        <div className="col-xl-7" style={{width:"550px",height:"550px"}}>
+                            <Post_slider storage={param.storage} data={param.data} preview={true}/>
                         </div>
                         <div className="col-xl-5" style={{width:"500px",paddingLeft:"0px"}}>
                             <Post_author storage={param.storage} data={param.data}/>

@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom';
 import useAxios from "axios-hooks";
 import Post_thumbnail from "./helpers/postThumbnail";
 import Loading_screen from "../helpers/loading";
-import No_posts from "./helpers/no_posts";
-import Confirmation from "../helpers/confirmation";
+import No_user_posts from "./helpers/No_user_posts";
 function My_posts_preview() {
 
     const [{ data, loading, error }, refetch] = useAxios(posts.postsGateWay+"/"+selectedUserId);
@@ -12,7 +11,7 @@ function My_posts_preview() {
 
     return(
         <div className="row my-5 mx-5 justify-content-center h-50" style={{borderTop:"1px solid rgb(217,217,217)"}}>
-            {data.length === 0 && <No_posts/> }
+            {data.length === 0 && <No_user_posts/> }
             {Object.values(data).map((x)=>{return <Post_thumbnail data={x}/>})}
         </div>
     );

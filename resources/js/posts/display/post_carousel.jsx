@@ -3,8 +3,7 @@ import ReactDOM from "react-dom";
 import Post from "./post";
 import axios from "axios";
 import Loading_screen from "../../helpers/loading";
-import Error_modal from "../../helpers/error";
-import Success_modal from "../../helpers/success";
+import No_posts from "../../helpers/no_post";
 
 function Post_carousel() {
     const[page,setPage]=useState(1);
@@ -37,12 +36,12 @@ function Post_carousel() {
         }
     },[page,maxPages]);
     return(
-
         <div className="d-flex flex-column justify-content-center align-items-center">
             {
                 Object.values(data).map(x=>{return <Post data={x} storage={storage}/>})
             }
             {loading && <Loading_screen/>}
+            {page === maxPages && !loading && <No_posts/>}
         </div>
     );
 

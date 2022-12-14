@@ -49,18 +49,6 @@
                         </div>
                         <hr class="line">
                     </div>
-                    <div class="errors">
-                        @error('email')
-                        <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                        @enderror
-                        @error('password')
-                        <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                        @enderror
-                    </div>
                     <div class="alternative-login mx-2">
                         <span class="my-2" style="color: #385185;cursor: pointer;font-weight: bold;font-size: medium">{{__('login_and_register/login.login_via_fb')}}</span>
 

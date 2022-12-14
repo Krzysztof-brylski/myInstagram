@@ -15,9 +15,9 @@ class SearchController extends Controller
      */
     public function search_user(Request $request){
 
-        $request->username != null ? $name=$request->username: $name=null;
+        $request->username != null ? $name = $request->username: $name=null;
 
-        if($name !=null){
+        if($name != null){
             $query=User::query();
             $result=$query->where('username','like',"$name%")
                 ->orWhere('name','like',"$name%")->limit(15)->get();

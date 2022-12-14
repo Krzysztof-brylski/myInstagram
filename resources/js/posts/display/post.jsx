@@ -33,7 +33,7 @@ function Post(param) {
 
     return(
         <div style={postContainer} className="my-2">
-            <Post_author storage={param.storage} data={param.data}/>
+            <Post_author storage={param.storage} data={param.data} preview={false}/>
             <Post_slider storage={param.storage} data={param.data}/>
             <div className="p-2">
                 <Post_btns data={param.data} togglePostModal={togglePostModal}/>
