@@ -4,6 +4,7 @@ import Post from "./post";
 import axios from "axios";
 import Loading_screen from "../../helpers/loading";
 import No_posts from "../../helpers/no_post";
+import Proposing_users from "../../helpers/proposing_users";
 
 function Post_carousel() {
     const[page,setPage]=useState(1);
@@ -36,6 +37,7 @@ function Post_carousel() {
     },[page,maxPages]);
     return(
         <div className="d-flex flex-column justify-content-center align-items-center">
+            <Proposing_users/>
             {
                 Object.values(data).map(x=>{return <Post data={x} storage={storage}/>})
             }

@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function (){
         Route::post('/user/edit/', [UserController::class, 'update'])->name('user_edit_save');
         Route::post('/user/image/edit/', [UserController::class, 'updateImage'])->name('user_edit_image');
         Route::post('/user/image/delete/', [UserController::class, 'deleteImage'])->name('user_image_delete');
-        Route::post('/user/suggestedFollows/', [UserController::class, 'showSuggestedUsers'])->name('user_suggested_follows');
+        Route::get('/user/suggestedFollows/', [UserController::class, 'showSuggestedUsers'])->name('user_suggested_follows');
         Route::resource('User',UserController::class)->only(['show']);
         Route::post('/post/', [PostController::class,'store'])->name('add_post');
         Route::post('/post/{Post}', [PostController::class,'like'])->name('like_post');

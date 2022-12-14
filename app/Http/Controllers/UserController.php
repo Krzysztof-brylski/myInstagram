@@ -6,6 +6,7 @@ use App\Http\Requests\user\UserUpdateImageRequest;
 use App\Http\Requests\user\UserUpdateRequest;
 use App\Http\Requests\UserDeleteImageRequest;
 use App\Models\User;
+use App\Suggesting\SuggestingUsers;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,12 +36,17 @@ class UserController extends Controller
     }
 
     public function follow(User $User){
+
         if($User->exists and Auth::user()->id != $User->id ){
             if(Auth::user()->isUserFollowed($User->id)){
                 $count=Auth::user()->cancelFollowUser($User->id);
+                $suggestedUsers= new SuggestingUsers(Auth::user());
+                session(['suggestedUsers'=>$suggestedUsers->getSuggestedUsers()]);
                 return Response()->json(["status"=>"unFollowed","followers_count"=>$count],200);
             }
             $count=Auth::user()->followUser($User->id);
+            $suggestedUsers= new SuggestingUsers(Auth::user());
+            session(['suggestedUsers'=>$suggestedUsers->getSuggestedUsers()]);
             return Response()->json(["status"=>"Followed","followers_count"=>$count],200);
         }
         return Response()->json("UserDontExist",404);
@@ -80,8 +86,11 @@ class UserController extends Controller
         return Response()->json("ok",200);
     }
 
-    public function showSuggestedUsers(){
-        return Response()->json(session()->get('suggestedUsers'),200);
+    public function showSuggestedUsers(Request $request){
+        if($request->wantsJson()){
+            return Response()->json(session()->get('suggestedUsers'),200);
+        }
+        return view("user/suggested_users");
     }
 
     public function deleteImage(){

@@ -34,7 +34,7 @@ function Post_author(param) {
     return(
         <div style={postAuthorContainer} className="py-2" >
             <div className="mx-2">
-                <a href="#" className="w-100 h-100 pointer-svg">
+                <a href={user_show_url+'/'+param.data.author.id} className="w-100 h-100 pointer-svg">
                     <img src={param.storage+'/'+param.data.author.image} className="searching-result-img" width="50px" height="50px"/>
                 </a>
             </div>

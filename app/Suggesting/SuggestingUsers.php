@@ -16,34 +16,39 @@ class SuggestingUsers{
     private $User;
     private $userFollowedIds=array();
     private $suggestedUsers=array();
+    private $potentialFutureFollowsIds=array();
     public function __construct(User $User){
         $this->User=$User;
         $table_name="user_follows_".$this->User->username;
-        $this->userFollowedIds=DB::table($table_name)->get();
+        DB::table($table_name)->get("user_id")->each(function ($item){
+            array_push($this->userFollowedIds,$item->user_id);
+        });
 
-    }
-    private function freshUserFollowedIds(){
-        $table_name="user_follows_".$this->User->username;
-        return DB::table($table_name)->get();
     }
     private function getSuggestedUsersIds(){
-        $potentialFutureFollowsIds=array();
+
+        $popularUsers=User::query()->orderBy('followers_count','DESC')->limit(10)->get()->toArray();
+        foreach ($popularUsers as $popularUser){
+            array_push($this->potentialFutureFollowsIds,$popularUser["id"]);
+        }
 
         foreach ($this->userFollowedIds as $id){
-            $followedUser = User::find($id->user_id);
+            $followedUser = User::find($id);
             $potentialFollowsTableName="user_follows_".$followedUser->username;
-            array_push($potentialFutureFollowsIds,DB::table($potentialFollowsTableName)->get()->toArray());
+            DB::table($potentialFollowsTableName)->get("user_id")->each(function ($item){
+                if(!in_array($item->user_id,$this->potentialFutureFollowsIds )){
+                    array_push($this->potentialFutureFollowsIds,$item->user_id);
+                }
+            });
+
         }
-        return $potentialFutureFollowsIds;
     }
 
     private function buildSuggestedUserList(){
-        $potentialFutureFollowsIds=$this->getSuggestedUsersIds();
-        foreach ($potentialFutureFollowsIds as $ids){
-            foreach ($ids as $id){
-                if(!$this->freshUserFollowedIds()->has(["user_id"=>$id->user_id]) ){
-                    array_push($this->suggestedUsers, new userDto(User::find($id->user_id)));
-                }
+        $this->getSuggestedUsersIds();
+        foreach ($this->potentialFutureFollowsIds as $id){
+            if(!in_array($id, $this->userFollowedIds) and $id !== $this->User->id){
+                array_push($this->suggestedUsers, new userDto(User::find($id)));
             }
         }
     }
