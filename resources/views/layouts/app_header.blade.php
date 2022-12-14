@@ -8,7 +8,7 @@
         userId:"{{Auth::user()->id}}",
         userName:"{{Auth::user()->name}}",
         userPhoto:"{{Auth::user()->Info->photo}}",
-
+        suggestedFollowsGateWay:"{{route("user_suggested_follows")}}"
     };
     const posts={
         postsGateWay:'{{url('post/')}}',

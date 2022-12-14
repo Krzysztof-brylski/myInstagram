@@ -51,7 +51,6 @@ class UserController extends Controller
     }
 
     public function update(UserUpdateRequest $request){
-        //dd($request->all());
         $data=$request->validated();
         $user=Auth::user();
 
@@ -79,6 +78,10 @@ class UserController extends Controller
         $User->info->photo=$request->file('newImage')->store('user_photos');
         $User->info->save();
         return Response()->json("ok",200);
+    }
+
+    public function showSuggestedUsers(){
+        return Response()->json(session()->get('suggestedUsers'),200);
     }
 
     public function deleteImage(){

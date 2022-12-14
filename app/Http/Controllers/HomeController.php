@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Suggesting\SuggestingUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,6 +25,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+        $suggestedUsers= new SuggestingUsers(Auth::user());
+        session(['suggestedUsers'=>$suggestedUsers->getSuggestedUsers()]);
+
         if(Auth::user()->hasInfo()){
             return view('home');
         }

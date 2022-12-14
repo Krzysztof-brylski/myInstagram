@@ -7,7 +7,7 @@
 <script>
 
     const userImageUpdateGateWay="{{route("user_edit_image")}}";
-
+    const userImageDeleteGateWay="{{route("user_image_delete")}}";
 </script>
 
 <div class="container my-5 w-100 h-100 d-flex justify-content-center">

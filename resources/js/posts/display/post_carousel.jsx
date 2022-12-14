@@ -12,9 +12,8 @@ function Post_carousel() {
     const[maxPages,setMaxPages]=useState(0);
     useEffect(async()=>{
         const response = await axios.get(posts.postsProposedGateWay,{params:{"page":page}});
-        setMaxPages(parseInt(response.data['max_pages']));
-        let data=Object.values(response.data);
-        data.pop();
+        setMaxPages(parseInt(response.data['maxPages']));
+        let data=Object.values(response.data['posts']);
         setData((prev)=>[...prev,...data]);
         setLoading(false);
 

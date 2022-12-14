@@ -2,19 +2,24 @@ import React, {useState, useRef} from 'react';
 import 'react-image-crop/dist/ReactCrop.css'
 import ReactCrop from 'react-image-crop'
 import axios from "axios";
-function Image_preview({image,setFile,setDisplaySuccess=null,setDisplayError=null,setDisplayModal=null}) {
+import Error_modal from "../../helpers/error";
+function Image_preview({image,setFile,setDisplaySuccess=null, setDisplayModal=null}) {
     const ModalStyle={
         inset:`${window.scrollY}px 0 0 0 `,
         zIndex:"99999",
     };
     const canvas=useRef();
     const [newFile,setNewFile]=useState(null);
-
+    const[displayError,setDisplayError]=useState(false);
+    const[errorMessage,setErrorMessage]=useState(null);
     const [crop, setCrop] = useState({
         unit: 'px', // Can be 'px' or '%'
         width:100,
         height:100,
     });
+    const ErrorModalToggle=()=>{
+        setDisplayError(!displayError);
+    }
     function dataURLtoFile(dataUrl, fileName) {
 
         var arr = dataUrl.split(','),
@@ -62,10 +67,11 @@ function Image_preview({image,setFile,setDisplaySuccess=null,setDisplayError=nul
                 setDisplaySuccess !== null ?setDisplayModal(false):null;
                 setDisplaySuccess(true);
             }
-            else{
-                setDisplayModal !== null ?setDisplayModal(false):null;
-                setDisplayError(true);
-            }
+
+        }).catch((error)=>{
+            //setDisplayModal !== null ? setDisplayModal(false):null;
+            setErrorMessage(Object.values(error.response.data)[0][0]);
+            setDisplayError(true);
         });
     };
 
@@ -76,8 +82,8 @@ function Image_preview({image,setFile,setDisplaySuccess=null,setDisplayError=nul
                     <ReactCrop crop={crop}
                                onChange={(crop)=>{setCrop(crop)}}
                                aspect={1}
-                               minWidth={100}
-                               minHeight={100}
+                               minWidth={200}
+                               minHeight={200}
                                maxWidth={250}
                                maxHeight={250}
                                circularCrop={true}
@@ -93,6 +99,7 @@ function Image_preview({image,setFile,setDisplaySuccess=null,setDisplayError=nul
                 <canvas hidden  ref={canvas}> </canvas>
                 </div>
             </div>
+            <Error_modal display={displayError} toggle={ErrorModalToggle} errorMessage={errorMessage} killCallback={()=>{setFile(null); }}/>
         </div>
     );
 }

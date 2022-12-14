@@ -7,10 +7,9 @@ use App\Models\Post;
 use App\Models\Post_images;
 use App\Models\Post_likes;
 use App\Models\User;
+use App\Suggesting\SuggestingPosts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\JsonResponse;
-use App\Dto\PostPackDto;
 use App\Dto\user\userDto;
 use App\Dto\post\postDto;
 use App\Dto\post\postImagesDto;
@@ -20,9 +19,11 @@ use Illuminate\Support\Facades\Storage;
 class PostController extends Controller
 {
     private $proposing;
+    const maxPages=5;
+    const pageSize=10;
 
     public function __construct(){
-        $this->proposing= new PostPackDto();
+        $this->proposing= new SuggestingPosts(self::maxPages,self::pageSize);
     }
 
     public function show(User $User){
@@ -47,10 +48,7 @@ class PostController extends Controller
         $this->proposing->build(Auth::user());
         if($request->has("page")){
             $page=$request->page;
-
             $response=$this->proposing->getPostPac($page);
-            $response["max_pages"]=$this->proposing->getMaxPages();
-
             return Response()->json($response,200);
         }
         return Response()->json("Error",400);

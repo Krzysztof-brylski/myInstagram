@@ -40,8 +40,7 @@ function Edit_profile_photo() {
     const resetImage=()=>{
       let formData= new FormData();
       formData.append("_token",userInfo.csrf);
-      formData.append("newImage",false);
-      axios.post(userImageUpdateGateWay,formData).then((response)=>{
+      axios.post(userImageDeleteGateWay,formData).then((response)=>{
           console.log(response);
           if(response.status === 200){
               setDisplayModal(false);
