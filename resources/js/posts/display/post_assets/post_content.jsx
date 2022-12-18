@@ -1,8 +1,13 @@
-import React,{useState,useEffect} from 'react';
-
-function Post_content(param) {
+import React from 'react';
+/**
+ * displaying post content
+ * @component
+ * @param {Object} data; Object with post data
+ * @returns {<Post_content>}
+ */
+function Post_content({data}) {
     return(
-        <div><p>{param.data.content}</p></div>
+        <div><p>{data.content}</p></div>
     )
 }
 export default Post_content;

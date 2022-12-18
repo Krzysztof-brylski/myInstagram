@@ -3,7 +3,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
 import Confirmation from "../../../helpers/confirmation";
-function Post_author(param) {
+
+
+/**
+ * displaing post author component
+ * @component
+ * @param {Object} data; Object with post data
+ * @returns {<Post_author>}
+ */
+
+function Post_author({data}) {
     const [display,setDisplay]=useState(false);
     const [result,setResult]=useState(null);
     const [clicked,setClicked]=useState(false);
@@ -20,8 +29,9 @@ function Post_author(param) {
                 const formData = new FormData();
                 formData.append('_token',userInfo.csrf);
                 formData.append('user_id',userInfo.userId);
-                formData.append('post_id',param.data.post_id);
+                formData.append('post_id',data.post_id);
                 axios.post(posts.postsDeleteGateWay,formData);
+                window.location.reload();
             }
 
             setResult(null);
@@ -34,14 +44,14 @@ function Post_author(param) {
     return(
         <div style={postAuthorContainer} className="py-2" >
             <div className="mx-2">
-                <a href={user_show_url+'/'+param.data.author.id} className="w-100 h-100 pointer-svg">
-                    <img src={param.storage+'/'+param.data.author.image} className="searching-result-img" width="50px" height="50px"/>
+                <a href={user_show_url+'/'+data.author.id} className="w-100 h-100 pointer-svg">
+                    <img src={storage+'/'+data.author.image} className="searching-result-img" width="50px" height="50px"/>
                 </a>
             </div>
             <div className="d-flex justify-content-between w-75">
-                <h6>{param.data.author.username}</h6>
+                <h6>{data.author.username}</h6>
                 {
-                    param.data.author.id===parseInt(userInfo.userId) &&
+                    data.author.id===parseInt(userInfo.userId) &&
                     (<FontAwesomeIcon onClick={()=>{setClicked(true)}} className="pointer-svg"  icon={faTrashCan} size={"lg"}/>)
                 }
             </div>

@@ -1,9 +1,15 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faBell,faBellSlash} from '@fortawesome/free-solid-svg-icons';
 import ReactDOM from 'react-dom';
 import axios from "axios";
 
+/**
+ * displaying like user button,
+ * and sending like request
+ * @component
+ * @returns {<Follow_btn>}
+ */
 function Follow_btn() {
     const [followed,setFollowed] = useState(isUserFollowed);
     const [followersCount,setFollowersCount] = useState(startFollowersCount);

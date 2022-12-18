@@ -1,6 +1,9 @@
 @extends('layouts.app')
+<script>
+    const selectedUserId="{{$user->id}}";
+</script>
 @viteReactRefresh
-@vite(['resources/js/user/my_posts_preview.jsx'])
+@vite(['resources/js/user/posts_preview.jsx'])
 <script src="https://kit.fontawesome.com/7a1ae6883e.js" crossorigin="anonymous"></script>
 @section('content')
 @include('layouts/app_header')

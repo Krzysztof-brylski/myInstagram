@@ -1,9 +1,18 @@
 import React, {useEffect} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faCircleCheck} from '@fortawesome/free-solid-svg-icons';
-function Success_modal(param) {
 
-    if(!param.display){return null;}
+/**
+ *
+ * @param {boolean} display; boolean for displaying modal
+ * @param {function} toggle; toggle modal display function
+ * @param {function} [killCallback = null]; this callback is used to close parent modal
+ * @returns {null| <Success_modal>}
+ * @constructor
+ */
+function Success_modal({display, toggle, killCallback=null}) {
+
+    if(!display){return null;}
     const modalBodyStyle={
       backgroundColor:"white",
       border:"solid 1px transparent",
@@ -17,9 +26,9 @@ function Success_modal(param) {
         fontWeight:"400"
     };
     const close=()=>{
-        param.toggle();
-        if(param.killCallback !== null){
-            param.killCallback()
+        toggle();
+        if(killCallback !== null){
+            killCallback()
         }
     };
     useEffect(()=>{
@@ -38,7 +47,7 @@ function Success_modal(param) {
                    <FontAwesomeIcon icon={faCircleCheck} size={"6x"} style={{color:"green"}}/>
                     <h2 style={headersStyle}  className="my-2">Sukcess!</h2>
                     <h4 style={headersStyle} >Wszystko poszło zgodnie z planem</h4>
-                    <button onClick={close} className="my-2 w-50 form-submit">Rozumiem</button>
+                    <button type="button" onClick={close} className="my-2 w-50 form-submit">Rozumiem</button>
                 </div>
             </div>
         </div>

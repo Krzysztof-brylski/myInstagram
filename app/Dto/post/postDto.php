@@ -5,6 +5,11 @@ use App\Dto\post\postImagesDto;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class postDto
+ * DTO for post
+ * @package App\Dto\post
+ */
 class postDto{
 
     public $post_id;
@@ -14,7 +19,12 @@ class postDto{
     public $liked;
     public $images;
 
-
+    /**
+     * postDto constructor.
+     * @param userDto $userDto
+     * @param postImagesDto $postImagesDto
+     * @param Post $post
+     */
 
     public function __construct(userDto $userDto,postImagesDto $postImagesDto,Post $post){
         $this->author=$userDto;

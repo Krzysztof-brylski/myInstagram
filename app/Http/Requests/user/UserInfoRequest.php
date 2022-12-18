@@ -7,6 +7,11 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
 use Illuminate\Validation\ValidationException;
 
+/**
+ * validation for add user info request
+ * Class UserInfoRequest
+ * @package App\Http\Requests\user
+ */
 class UserInfoRequest extends FormRequest
 {
     /**

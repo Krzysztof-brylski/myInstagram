@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserInfoRequest;
+use App\Http\Requests\user\UserInfoRequest;
 use App\Models\User;
 use App\Models\UserInfo;
+use App\Suggesting\SuggestingUsers;
 use http\Env\Response;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -23,11 +24,8 @@ class UserInfoController extends Controller
      */
     public function create()
     {
-        $months=__('login_and_register/UserInfo.months');
         return view('auth.additional_info.additional_info', [
-            'user'=>Auth::user(),
-            'months'=>$months
-            ]);
+            'user'=>Auth::user()]);
     }
 
     /**
@@ -35,7 +33,7 @@ class UserInfoController extends Controller
      *
      * @param UserInfoRequest $request
      * @param User $User
-     * @return void
+     * @return Response
      */
     public function store(UserInfoRequest $request,User $User)
     {
@@ -47,7 +45,7 @@ class UserInfoController extends Controller
         $request->has("public_status") ? $info->public_status=true : $info->public_status=false;
         $info->description = $data["description"];
 
-        Schema::create("user_follows_".$User->username, function (Blueprint $table) {
+        Schema::create("user_follows_".$User->id, function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id")->constrained("users");
             $table->timestamps();
@@ -62,31 +60,10 @@ class UserInfoController extends Controller
 
         $info->photo = "user_photos/default.png";
         $User->Info()->save($info);
+
+        $suggestedUsers= new SuggestingUsers(Auth::user());
+        session(['suggestedUsers'=>$suggestedUsers->getSuggestedUsers()]);
+
         return Response()->json("ok",200);
     }
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
 }

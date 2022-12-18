@@ -1,10 +1,18 @@
 import React,{useState,useEffect} from 'react';
 
-function Post_slider(param) {
+/**
+ * displaying post images slider component
+ * @component
+ * @param {boolean} preview; true if post slider is displayed in post preview component
+ * @param {Array} data; array with post images
+ * @returns {*}
+ * @constructor
+ */
+function Post_slider({preview,data,}) {
 
     const [currentSlide,setCurrentSlide]=useState(0);
     const [displayControl,setDisplayControl]=useState(true);
-    if(param.preview){
+    if(preview){
         var postImage={
             padding:"0",
             width:"inherit",
@@ -58,8 +66,8 @@ function Post_slider(param) {
 
 
 
-    const slides=param.data.images.map(image=>(
-        <img className="w-100 h-100" style={postImage}  src={param.storage+'/'+image}/>
+    const slides=data.images.map(image=>(
+        <img className="w-100 h-100" style={postImage}  src={storage+'/'+image}/>
     ));
 
     const slidePointers=slides.map((element,index)=>{

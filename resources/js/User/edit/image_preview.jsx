@@ -3,6 +3,15 @@ import 'react-image-crop/dist/ReactCrop.css'
 import ReactCrop from 'react-image-crop'
 import axios from "axios";
 import Error_modal from "../../helpers/error";
+
+/**
+ * @component
+ * @param {Object} image; object with selected new image
+ * @param {function} setFile; function setting cropped image
+ * @param {function} [setDisplaySuccess=null]; function displaying success modal
+ * @param {function} [setDisplayModal=null]; function closing modal
+ * @returns {<Image_preview>}
+ */
 function Image_preview({image,setFile,setDisplaySuccess=null, setDisplayModal=null}) {
     const ModalStyle={
         inset:`${window.scrollY}px 0 0 0 `,

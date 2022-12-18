@@ -5,7 +5,13 @@ import Post_btns from "./post_assets/post_btns";
 import Post_content from "./post_assets/post_content";
 import Post_preview from './post_assets/post_preview'
 
-function Post(param) {
+/**
+ * displaying post container
+ * @component
+ * @param {Object} data; object with post data
+ * @returns {<Post>}
+ */
+function Post({data}) {
 
     const[showPreview,setShowPreview]=useState(false);
 
@@ -33,13 +39,13 @@ function Post(param) {
 
     return(
         <div style={postContainer} className="my-2">
-            <Post_author storage={param.storage} data={param.data} preview={false}/>
-            <Post_slider storage={param.storage} data={param.data}/>
+            <Post_author  data={data} preview={false}/>
+            <Post_slider  data={data}/>
             <div className="p-2">
-                <Post_btns data={param.data} togglePostModal={togglePostModal}/>
-                <Post_content data={param.data} />
+                <Post_btns data={data} togglePostModal={togglePostModal}/>
+                <Post_content data={data} />
             </div>
-            <Post_preview show={showPreview} onClose={togglePostModal} style={postModalStyle} storage={param.storage} data={param.data}/>
+            <Post_preview display={showPreview} onClose={togglePostModal} style={postModalStyle} postData={data}/>
         </div>
     );
 }

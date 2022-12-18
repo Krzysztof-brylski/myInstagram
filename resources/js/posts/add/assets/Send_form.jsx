@@ -3,9 +3,18 @@ import Error_modal from "../../../helpers/error";
 import Success_modal from "../../../helpers/success";
 import axios from "axios";
 
-function SendForm(props) {
+/**
+ * displaying last stage of adding posts
+ * adding post description and sending create request
+ * @component
+ * @param {boolean} display; boolean for displaying image form
+ * @param {Array} files; Array with files
+ * @param {function} killModal; function closing modal
+ * @returns {null| <Send_form>}
+ */
+function Send_form({display,files,killModal}) {
+    if(!display) return null;
 
-    if(!props.show) return null;
     const[message,setMessage]=useState('');
     const[displayError,setDisplayError]=useState(false);
     const[errorMessage,setErrorMessage]=useState(null);
@@ -23,16 +32,15 @@ function SendForm(props) {
         setDisplaySuccess(!displaySuccess);
     };
     const submit=()=>{
-        //console.log(props.url);
         const formData = new FormData();
-        formData.append('_token',props.userInfo.csrf);
-        for(let i=0;i<props.files.length;i++){
-            formData.append('files[]',props.files[i]);
-        }
+        formData.append('_token',userInfo.csrf);
+        files.map((file)=>{
+            formData.append('files[]',file);
+        });
         formData.append('content',message);
+
         axios.post(posts.postsGateWay,formData)
             .then(function(res){
-                console.log(res);
                 if(res.status === 201){
                     SuccessModalToggle();
                 }
@@ -41,7 +49,6 @@ function SendForm(props) {
                 setErrorMessage(Object.values(error.response.data)[0][0]);
                 ErrorModalToggle();
             })
-
     };
 
     return(
@@ -60,12 +67,12 @@ function SendForm(props) {
                 </textarea>
                 <button className="form-submit" type='button' onClick={submit}>Udostępnij</button>
             </form>
-            <Error_modal display={displayError} toggle={ErrorModalToggle} errorMessage={errorMessage} killCallback={null}/>
-            <Success_modal display={displaySuccess} toggle={SuccessModalToggle}  killCallback={props.killModal}/>
+            <Error_modal display={displayError} toggle={ErrorModalToggle} errorMessage={errorMessage} />
+            <Success_modal display={displaySuccess} toggle={SuccessModalToggle}  killCallback={killModal}/>
 
         </div>
 
     );
 
 }
-export default SendForm;
+export default Send_form;

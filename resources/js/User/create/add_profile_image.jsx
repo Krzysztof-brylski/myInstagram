@@ -6,6 +6,12 @@ import ReactCrop from 'react-image-crop'
 import axios from "axios";
 import Error_modal from "../../helpers/error";
 
+/**
+ * displaying add profile image form,
+ * with image cropping
+ * @component
+ * @returns {<Add_profile_image>}
+ */
 function Add_profile_image() {
     const[image,setImage]=useState(null);
     const[selectedImage,setSelectedImage]=useState(null);

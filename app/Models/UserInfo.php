@@ -5,6 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * user info model
+ * Class UserInfo
+ * @package App\Models
+ */
 class UserInfo extends Model
 {
 
@@ -15,7 +20,7 @@ class UserInfo extends Model
         'description',
         'user_id',
     ];
-
+    //DB-relations
     public function User(){
         return $this->belongsTo(User::class);
     }

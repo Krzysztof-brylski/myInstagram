@@ -2,9 +2,17 @@ import React,{useState,useEffect} from 'react';
 import axios from "axios";
 
 
+/**
+ *
+ * displaying adding comment form
+ * and sending add comment request
+ * @component
+ * @param {int} post_id;
+ * @param {function} refreshComments;
+ * @returns {<Add_comment/>}
+ */
 
-
-function Add_comment(props) {
+function Add_comment({post_id,refreshComments}) {
 
     const[comment,setComment]=useState('');
     const handleDescription=event=>{
@@ -31,7 +39,7 @@ function Add_comment(props) {
             const formData = new FormData();
             formData.append('_token', userInfo.csrf);
             formData.append('comment', comment);
-            formData.append('post_id',props.post_id);
+            formData.append('post_id',post_id);
             axios.post(posts.commentPostGateWay+"/", formData)
                 .then(() => {
 
@@ -39,7 +47,7 @@ function Add_comment(props) {
         }
         setComment('');
         document.querySelector("#inputComment").value='';
-        props.refreshComments();
+        refreshComments();
     };
 
 

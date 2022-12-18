@@ -4,6 +4,11 @@ namespace App\Http\Requests\post;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * validation for create post comment request
+ * Class PostCommentCreateRequest
+ * @package App\Http\Requests\post
+ */
 class PostCommentCreateRequest extends FormRequest
 {
     /**

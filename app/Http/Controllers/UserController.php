@@ -15,7 +15,11 @@ use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
-    //
+    /**
+     * return profile view or admin profile view is specified user is same as auth user
+     * @param User $User
+     * @return View | View
+     */
     public function show(User $User){
 
         if($User->exists){
@@ -35,6 +39,11 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * handling follow or un-follow request
+     * @param User $User
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function follow(User $User){
 
         if($User->exists and Auth::user()->id != $User->id ){
@@ -52,10 +61,20 @@ class UserController extends Controller
         return Response()->json("UserDontExist",404);
     }
 
+    /**
+     * return  edit user data view
+     * @param User $User
+     * @return View
+     */
     public function edit(User $User){
         return view("user/edit",["user"=>$User]);
     }
 
+    /**
+     * handling user edit request
+     * @param UserUpdateRequest $request
+     * @return Redirect
+     */
     public function update(UserUpdateRequest $request){
         $data=$request->validated();
         $user=Auth::user();
@@ -73,6 +92,12 @@ class UserController extends Controller
 
         return Redirect(route("user_edit",$user->id));
     }
+
+    /**
+     * handling user image update request
+     * @param UserUpdateImageRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function updateImage(UserUpdateImageRequest $request){
         $request->validated();
         $User=Auth::user();
@@ -86,6 +111,12 @@ class UserController extends Controller
         return Response()->json("ok",200);
     }
 
+    /**
+     * return view with all suggested users
+     * if wants json return json-response with all   suggested users
+     * @param Request $request
+     * @return Veiw|Response
+     */
     public function showSuggestedUsers(Request $request){
         if($request->wantsJson()){
             return Response()->json(session()->get('suggestedUsers'),200);
@@ -93,6 +124,10 @@ class UserController extends Controller
         return view("user/suggested_users");
     }
 
+    /**
+     * handling deleting image request
+     * @return Response
+     */
     public function deleteImage(){
         $User=Auth::user();
         if($User->info->photo != "user_photos/default.png"){

@@ -1,8 +1,13 @@
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
-import ResultContainer from './result_container';
+import Result_container from './result_container';
 import axios from "axios";
 
+/**
+ * displaying user searching input
+ * @component
+ * @returns {<Search>}
+ */
 function Search() {
     const [open,setOpen]=useState(false);
     const [data,setData]=useState(null);
@@ -41,7 +46,7 @@ function Search() {
                 className="search-form-input"
                 type="text"
             />
-            <ResultContainer data={data}  display={open}/>
+            <Result_container data={data}  display={open}/>
         </div>
     );
 }

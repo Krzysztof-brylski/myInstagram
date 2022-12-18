@@ -2,12 +2,14 @@ import React, {useState,useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import Image_preview from './image_preview'
 import axios from "axios";
-import {faXmark} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Error_modal from "../../helpers/error";
 import Success_modal from "../../helpers/success";
 
-
+/**
+ * displaying edit or delete profile image action select,
+ * @component
+ * @returns {<Edit_profile_photo>}
+ */
 function Edit_profile_photo() {
 
     const [displayModal,setDisplayModal]=useState(false);

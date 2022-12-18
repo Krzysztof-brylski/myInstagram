@@ -10,16 +10,16 @@ class ExistUserInfo
 {
     /**
      * Handle an incoming request.
-     *
+     * check auth user has a fully completed profile
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->Info())
+        if(Auth::user()->Info()) {
             return $next($request);
-
+        }
         return route('UserInfo.create');
     }
 }

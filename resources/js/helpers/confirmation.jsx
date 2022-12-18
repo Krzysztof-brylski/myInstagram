@@ -2,9 +2,17 @@ import React,{useState,useEffect} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faQuestion,faCheck,faXmark} from '@fortawesome/free-solid-svg-icons';
 
+/**
+ * display action-confirm modal
+ * @component
+ * @param {function} toggle; toggle modal display function
+ * @param {boolean} display; boolean for displaying modal
+ * @param {function} setResult; callback function for setting confirmation status
+ * @returns {null| <Confirmation>}
+ */
 
-function Confirmation(param) {
-    if(!param.display){return null;}
+function Confirmation({toggle,display,setResult}) {
+    if(!display){return null;}
     const modalBodyStyle={
         backgroundColor:"white",
         border:"solid 1px transparent",
@@ -25,10 +33,10 @@ function Confirmation(param) {
                 <FontAwesomeIcon icon={faQuestion} size={"6x"}/>
                 <h2 style={headersStyle}  className="my-2">Czy napewno chcesz to zrobić ?</h2>
                 <div className="d-flex flex-row-reverse justify-content-center  w-100 my-3">
-                    <button onClick={()=>{param.toggle(false);param.setResult(true);}} className=" btn btn-success mx-2">
+                    <button type="button" onClick={()=>{toggle(false);setResult(true);}} className=" btn btn-success mx-2">
                          <FontAwesomeIcon icon={faCheck} size={"lg"}/> Tak
                     </button>
-                    <button onClick={()=>{param.toggle(false);param.setResult(false);}} className=" btn btn-danger mx-2">
+                    <button type="button" onClick={()=>{toggle(false);setResult(false);}} className=" btn btn-danger mx-2">
                          <FontAwesomeIcon icon={faXmark} size={"lg"}/> Nie
                     </button>
                 </div>

@@ -19,13 +19,17 @@ use Illuminate\Support\Facades\Storage;
 class PostController extends Controller
 {
     private $proposing;
-    const maxPages=5;
     const pageSize=10;
 
     public function __construct(){
-        $this->proposing= new SuggestingPosts(self::maxPages,self::pageSize);
+        $this->proposing= new SuggestingPosts(self::pageSize);
     }
 
+    /**
+     * showing posts added by specified user
+     * @param User $User
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function show(User $User){
         if(!$User->exists){
             return Response()->json("Error",400);
@@ -44,7 +48,12 @@ class PostController extends Controller
         return Response()->json($postsContainer->getReverse(),200);
     }
 
-    public function proposedPosts(Request $request){
+    /**
+     * paginate thru suggested posts, and showing current page
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function suggestedPosts(Request $request){
         $this->proposing->build(Auth::user());
         if($request->has("page")){
             $page=$request->page;
@@ -54,6 +63,11 @@ class PostController extends Controller
         return Response()->json("Error",400);
     }
 
+    /**
+     * saving new post created by user
+     * @param PostCreateRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(PostCreateRequest $request){
 
         $data=$request->validated();
@@ -72,10 +86,21 @@ class PostController extends Controller
         return Response()->json("Post_Created",201);
     }
 
+    /**
+     * returning response with count of posts added by specified user
+     * @param User $User
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function postCount(User $User){
-       return Response($User->postCount(),200);
+       return Response()->json($User->postCount(),200);
     }
 
+    /**
+     * returning response with like count of specified post,
+     * and information if auth liked this post
+     * @param Post $Post
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function likeCount(Post $Post){
         if($Post->exists){
             return Response()->json(array(
@@ -86,6 +111,11 @@ class PostController extends Controller
         return Response()->json("Error",400);
     }
 
+    /**
+     * handling liking or disliking specified post
+     * @param Post $Post
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function like(Post $Post){
         $userId=Auth::user()->id;
         if($Post->exists){
@@ -104,10 +134,11 @@ class PostController extends Controller
         }
         return Response()->json("Error",400);
     }
-
-
-
-
+    /**
+     * deleting sepcified post
+     * @param PostDeleteRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(PostDeleteRequest $request){
 
 

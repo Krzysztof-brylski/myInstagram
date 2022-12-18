@@ -9,6 +9,11 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
+/**
+ * validation for post create request
+ * Class PostCreateRequest
+ * @package App\Http\Requests\post
+ */
 class PostCreateRequest extends FormRequest
 {
     /**

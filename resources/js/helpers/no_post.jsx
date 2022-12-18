@@ -2,8 +2,14 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faEyeSlash} from '@fortawesome/free-regular-svg-icons';
 
-function No_posts() {
+/**
+ * display information about end of posts to see
+ * @component
+ * @returns {<No_posts>}
+ *
+ */
 
+function No_posts() {
 
     const postContainer={
         width:"35%",

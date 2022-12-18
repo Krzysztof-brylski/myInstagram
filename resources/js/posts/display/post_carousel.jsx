@@ -6,6 +6,13 @@ import Loading_screen from "../../helpers/loading";
 import No_posts from "../../helpers/no_post";
 import Proposing_users from "../../helpers/proposing_users";
 
+/**
+ *
+ * displaing post carousel,
+ * getting posts data from request, and handling infinite scroll
+ * @returns {<Post_carousel>}
+ *
+ */
 function Post_carousel() {
     const[page,setPage]=useState(1);
     const[data,setData]=useState([]);
@@ -18,11 +25,11 @@ function Post_carousel() {
         setData((prev)=>[...prev,...data]);
         setLoading(false);
 
-    },[page,maxPages]);
+    },[page]);
+    console.log(data);
+    const handleScroll=()=> {
 
-    const handleScroll=()=>{
-
-        if(window.innerHeight + document.documentElement.scrollTop+1 >=document.documentElement.scrollHeight ){
+        if(window.innerHeight + document.documentElement.scrollTop+1 >= document.documentElement.scrollHeight ){
             setLoading(true);
             setPage((page)=>page+1);
         }

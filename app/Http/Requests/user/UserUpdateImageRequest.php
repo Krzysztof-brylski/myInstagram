@@ -6,6 +6,11 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
 
+/**
+ * validation for update user image request
+ * Class UserUpdateImageRequest
+ * @package App\Http\Requests\user
+ */
 class UserUpdateImageRequest extends FormRequest
 {
     /**

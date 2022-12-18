@@ -3,11 +3,17 @@ import Modal from "../../posts/add/add_post_modal";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEyeSlash} from "@fortawesome/free-regular-svg-icons";
 
-function No_user_posts(param) {
+/**
+ * displaying information about user have no posts
+ * @param {boolean} self; true if component is displaying on auth user profile
+ * @returns {<No_user_posts>}
+ *
+ */
+function No_user_posts({self}) {
 
     let info = (<p>gdy zdjęcie zostanie udostępnione pojawi się tutaj</p>);
 
-    if(param.self){
+    if(self){
         const [OpenModal,setOpenModal]=useState(false);
         const toggleModal = () => {
             setOpenModal(!OpenModal);
@@ -19,8 +25,8 @@ function No_user_posts(param) {
         };
         info = (<div className="d-flex flex-column justify-content-center align-items-center text-center">
             Każde udostępione przez ciebie zdjęcie się na twoim profilu
-            <p className="my-3" style={{color:"blue",cursor:"pointer"}} onClick={toggleModal}>Dodaj swoje pierwsze zdjęcie</p>
-            <Modal open={OpenModal} onClose={toggleModal} userInfo={userInfo}/>
+            <p className="my-3 cursor-pointer" style={{color:"blue",cursor:"pointer"}} onClick={toggleModal}>Dodaj swoje pierwsze zdjęcie</p>
+            <Modal display={OpenModal} onClose={toggleModal}/>
         </div>);
     }
     const hStyle={

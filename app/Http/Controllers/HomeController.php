@@ -25,11 +25,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-        $suggestedUsers= new SuggestingUsers(Auth::user());
-        session(['suggestedUsers'=>$suggestedUsers->getSuggestedUsers()]);
-
         if(Auth::user()->hasInfo()){
+
+
+
             return view('home');
         }
         return redirect(route('UserInfo.create'));

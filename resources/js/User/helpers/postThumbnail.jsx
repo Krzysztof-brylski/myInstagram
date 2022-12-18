@@ -4,8 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faLayerGroup} from '@fortawesome/free-solid-svg-icons'
 import Post_hover from "./post_hover";
 
-function Post_thumbnail(param) {
-    if(param.data == null){return null;}
+/**
+ * displaing post thumbnail
+ * @component
+ * @param {object} data; object with post data
+ * @returns {null|<Post_thumbnail>}
+ */
+function Post_thumbnail({data}) {
+    if(data == null){return null;}
     const[showPreview,setShowPreview]=useState(false);
     const[showHover,setShowHover]=useState(false);
     const postModalStyle={
@@ -24,26 +30,26 @@ function Post_thumbnail(param) {
       height:"300px",
     };
 
-
+    console.log(data)
 
     const gallery=(<div className="position-absolute d-flex justify-content-end w-100 p-2">
         <FontAwesomeIcon icon={faLayerGroup} size={"lg"}/>
     </div>);
     let icon=(<p className="position-absolute"> </p>);
-    param.data.images.length >1 ? icon=gallery:null;
+    data.images.length >1 ? icon=gallery:null;
 
     return(
-        <div className="col-xl-4  m-4 p-0 cursor-pointer" style={thumbnailStyle}   onClick={togglePostModal}>
+        <div className="col-xl-4  m-4 p-0 cursor-pointer" style={thumbnailStyle}  onClick={togglePostModal}>
             <div className="position-relative w-100 h-100"
                  onMouseEnter={()=>{setShowHover(true);}}
                  onMouseLeave={()=>{setShowHover(false);}}
             >
                 {icon}
-                <img src={storage+"/"+param.data.images[0]} style={thumbnailStyle}/>
-                <Post_hover display={showHover} like_count={param.data.like_count} />
+                <img src={storage+"/"+data.images[0]} style={thumbnailStyle}/>
+                <Post_hover display={showHover} like_count={data.like_count} />
             </div>
 
-            <Post_preview show={showPreview} onClose={togglePostModal} style={postModalStyle} storage={storage} data={param.data}/>
+            <Post_preview display={showPreview} onClose={togglePostModal} style={postModalStyle} storage={storage} postData={data}/>
         </div>);
 
 }

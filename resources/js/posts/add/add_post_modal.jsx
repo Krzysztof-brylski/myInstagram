@@ -1,11 +1,18 @@
 import React,{useState,useEffect} from 'react';
-import ImageForm from  "./assets/form"
+import Image_form from  "./assets/image_form"
 import Preview from  "./assets/previev"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faXmark} from "@fortawesome/free-solid-svg-icons";
 
-const Modal = ({open,onClose}) =>{
-    if(!open) return null;
+/**
+ *  displaying add post modal container
+ * @param {boolean} display;  boolean for displaying image form
+ * @param {function} onClose; function closing modal
+ * @returns {null|<Add_post_modal>}
+ * @constructor
+ */
+const Add_post_modal = ({display,onClose}) =>{
+    if(!display) return null;
 
     const [files,setFiles]=useState({});
     const [showFrom,setFormShow]=useState(true);
@@ -19,8 +26,6 @@ const Modal = ({open,onClose}) =>{
     const postModalStyle={
         inset:`${window.scrollY}px 0 0 0 `
     };
-
-
     return(
         <div className="modal-overlay" style={postModalStyle}>
             <div className="modal-close-btn-container">
@@ -33,12 +38,12 @@ const Modal = ({open,onClose}) =>{
                     <div className="modal-header d-flex justify-content-center p-1">
                         <h5 className="text-center">Utwórz nowy post</h5>
                     </div>
-                    <ImageForm  setFiles={setFiles} show={showFrom} showFrom={setFormShow} preView={setPreView}/>
-                    <Preview show={preView} files={files} setFiles={setFiles} userInfo={userInfo} sendform={showSendForm} showsendform={setShowSendForm} killModal={onClose} />
+                    <Image_form  setFiles={setFiles} display={showFrom} setShowFrom={setFormShow} setPreView={setPreView} closeForm={onClose}/>
+                    <Preview display={preView} files={files} setFiles={setFiles} sendForm={showSendForm} showSendForm={setShowSendForm} killModal={onClose} />
                 </div>
             </div>
         </div>
     )
 };
 
-export default Modal;
+export default Add_post_modal;

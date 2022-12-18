@@ -1,19 +1,23 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import ResultElement from './result_element';
 import Loading_screen from "../helpers/loading";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faXmark} from '@fortawesome/free-solid-svg-icons';
-//{ param.data.empty() && <FontAwesomeIcon  icon={faXmark}/>}
-function ResultContainer(param) {
-    if (!param.display) return null;
+
+/**
+ * displaying container for user searching results
+ * @component
+ * @param {boolean} display; boolean for displaying image form
+ * @param {Array} data; array with user searching results
+ * @returns {null|<Result_container>}
+ */
+function Result_container({display,data}) {
+    if (!display) return null;
     return(
         <div id="search-form-result" className="py-2 my-4 w-75" onMouseDown={(event => {event.preventDefault()})} >
 
-            {param.data == null && <Loading_screen />}
+            {data == null && <Loading_screen />}
             {
-                param.data !=null &&
-                param.data.map(obj=>{
+                data !=null &&
+                data.map(obj=>{
                     return <ResultElement data={obj}/>
                 })
             }
@@ -21,4 +25,4 @@ function ResultContainer(param) {
         );
 
 }
-export default ResultContainer;
+export default Result_container;

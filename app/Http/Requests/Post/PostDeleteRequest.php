@@ -6,6 +6,11 @@ use App\Models\Post;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * validation for post delete request
+ * Class PostDeleteRequest
+ * @package App\Http\Requests\post
+ */
 class PostDeleteRequest extends FormRequest
 {
     /**

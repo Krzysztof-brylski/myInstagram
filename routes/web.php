@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function (){
         Route::get('/post/likes/{Post}', [PostController::class,'likeCount'])->name('likeCount_post');
         Route::get('/post/{User}', [PostController::class,'show'])->name('get_posts');
         Route::post('/delete/post/', [PostController::class,'delete']);
-        Route::get('/proposing/', [PostController::class,'proposedPosts']);
+        Route::get('/proposing/', [PostController::class,'suggestedPosts']);
         Route::get('/post/count/{User}', [PostController::class,'postCount']);
         Route::get('/post/comments/{Post}', [PostCommentsControllerAlias::class,'getComments']);
         Route::post('/addPostComment/', [PostCommentsControllerAlias::class,'comment']);

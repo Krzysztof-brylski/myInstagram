@@ -1,16 +1,28 @@
 import React,{useState} from 'react';
-import SendForm from './sendForm';
+import Send_form from './Send_form';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faTrashCan, faXmark} from "@fortawesome/free-solid-svg-icons";
+import {faTrashCan} from "@fortawesome/free-solid-svg-icons";
 
-function Preview(props) {
+/**
+ * display post images preview,
+ * images slider, deleting images from post
+ * @component
+ * @param {boolean} display; boolean for displaying image preview
+ * @param {Array} files; array with images
+ * @param {boolean} sendForm; boolean for displaying form-send element
+ * @param {function} showSendForm; function showing form-send element
+ * @param {function} killModal; function closing modal
+ * @returns {null|<Preview/>}
+ *
+ */
+function Preview({display,files,sendForm,showSendForm,killModal}) {
 
-    if(!props.show) return null;
+    if(!display) return null;
     const[currentSlide,setCurrentSlide]=useState(0);
     const[deletedSlides,setDeletedSlides]=useState([]);
     var slides=[];
 
-    props.files.map((e, key)=>{
+    files.map((e, key)=>{
         if(!(key in deletedSlides)){
             slides.push(<div className="ImgPreview"  style={{backgroundImage:`url(${e.preview})`}} />);
         }
@@ -39,7 +51,7 @@ function Preview(props) {
         height:"100%",
         width:"100%"
     };
-    if(props.sendform === true){
+    if(sendForm === true){
         style={
             height:"100%",
             width:"70%"
@@ -57,7 +69,7 @@ function Preview(props) {
     };
 
     const toForm=()=>{
-        props.showsendform(true);
+        showSendForm(true);
         sendBtn.add({
             display:"none",
         })
@@ -66,7 +78,7 @@ function Preview(props) {
     const dellImage=()=>{
         setDeletedSlides((prev)=>[...prev,currentSlide]);
         if(slides.length === 1){
-            props.killModal();
+            killModal();
         }
     };
     return(
@@ -83,7 +95,7 @@ function Preview(props) {
                   slides[currentSlide]
               }
           </div>
-            <SendForm show={props.sendform} files={props.files} userInfo={userInfo} killModal={props.killModal} />
+            <Send_form display={sendForm} files={files}  killModal={killModal} />
         </div>
     );
 }

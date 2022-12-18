@@ -10,6 +10,7 @@ use App\Dto\user\userDto;
 class SearchController extends Controller
 {
     /**
+     * handling searching user request
      * @param Request $request
      * @return JsonResponse
      */
@@ -29,7 +30,7 @@ class SearchController extends Controller
                 array_push($usersArray,new userDto($user));
             }
             $resultVo= new searchUserVo($usersArray);
-            return Response()->json($resultVo->get_data());
+            return Response()->json($resultVo->get());
         }
 
         return Response()->json(null);
