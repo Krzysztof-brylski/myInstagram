@@ -3,9 +3,9 @@
     Project is about instagram like-app with supports:
     <ul>
         <li>Users registering and editing</li>
-        <li>Publishing,liking, commenting and deleting posts</li>
+        <li>Publishing, liking, commenting and deleting posts</li>
         <li>liking comments</li>
-        <li>following users</li>
+        <li>Following users</li>
         <li>Posts suggestion (based on follows)</li>
         <li>User suggestion (based on follows)</li>
     </ul>
